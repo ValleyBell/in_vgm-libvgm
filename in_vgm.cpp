@@ -215,7 +215,7 @@ void About(HWND hWndParent)
 		"\n"
 		"Special thanks goes to Maxim for the\n"
 			"initial in_vgm plugin (v0.3x)\n"
-		"Thanks to all the people whose work is used in libvgm.\n";
+		"Thanks to all the people that worked on/contributed to libvgm.\n";
 	std::string chipList;
 	std::string finalMsg;
 	size_t curChip;
@@ -832,7 +832,7 @@ void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 	
 	if (title != NULL) // get non-path portion of fileName
 	{
-		if (! fis->_songInfo.tags.empty())
+		if (fis != NULL && ! fis->_songInfo.tags.empty())
 		{
 			std::string titleU8 = FormatVGMTag("%t (%g) - %a", *fis);
 			size_t titleSize = GETFILEINFO_TITLE_LENGTH;
