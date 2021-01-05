@@ -80,9 +80,9 @@ END
 // Dialog
 //
 
-DlgCfgTags DIALOG 0, 0, 270, 166
+DlgCfgTags DIALOGEX 0, 0, 270, 166
 STYLE DS_SETFONT | DS_SETFOREGROUND | DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     GROUPBOX        "Legacy title &formatting",IDC_STATIC,5,5,100,155
     EDITTEXT        TitleFormatText,10,18,86,12,ES_AUTOHSCROLL
@@ -97,18 +97,18 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,28,140,15
     CONTROL         "&Trim whitespace",TrimWhitespcCheck,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,44,140,10
     CONTROL         "Standardise &separators (to ,)",StdSeparatorsCheck,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,58,140,10
+                    "Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,115,58,140,10
     GROUPBOX        "File type",IDC_STATIC,110,110,150,50
     LTEXT           "Return file &type ID:",IDC_STATIC,115,121,65,12,SS_CENTERIMAGE | NOT WS_GROUP
-    EDITTEXT        MLTypeText,180,121,74,12,ES_AUTOHSCROLL | ES_NUMBER
+    EDITTEXT        MLTypeText,180,121,74,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER
     CTEXT           "0 = audio, 1 = video\nSee the documentation for the usage.",IDC_STATIC,115,135,140,20,NOT WS_GROUP
     CONTROL         "Tag fallb&ack in File Info Dialog",TagFallbackCheck,
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,72,140,10
-    CONTROL         "Don't &cache file information",NoInfoCacheCheck,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,86,140,10
+    CONTROL         "Don't &cache file information",NoInfoCacheCheck,"Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,115,86,140,10
 END
 
 DlgConfigMain DIALOG 0, 0, 286, 210
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "VGM plugin configuration"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -120,9 +120,9 @@ BEGIN
 END
 
 DlgFileInfo DIALOGEX 0, 0, 379, 143
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
 CAPTION "VGM File & GD3 Tag Information"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,325,127,52,14
     GROUPBOX        "Track",IDC_STATIC,2,0,173,40
@@ -163,7 +163,7 @@ BEGIN
 END
 
 DlgCfgPlayback DIALOG 0, 0, 270, 166
-STYLE DS_SETFONT | DS_SETFOREGROUND | DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE
+STYLE DS_SETFONT | DS_SETFOREGROUND | DS_3DLOOK | DS_CONTROL | WS_CHILD | WS_VISIBLE
 FONT 8, "MS Shell Dlg"
 BEGIN
     GROUPBOX        "Sample Rates",IDC_STATIC,5,5,257,40
@@ -248,15 +248,16 @@ BEGIN
 END
 
 DlgCfgOptPan DIALOGEX 0, 0, 270, 166
-STYLE DS_SETFONT | DS_SETFOREGROUND | DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_VISIBLE
-FONT 8, "MS Shell Dlg"
+STYLE DS_SETFONT | DS_SETFOREGROUND | DS_3DLOOK | DS_CONTROL | WS_CHILD | WS_VISIBLE
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     LTEXT           "&Select Chip:",IDC_STATIC,10,12,50,10
     COMBOBOX        EmuOptChipList,60,10,60,80,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
     COMBOBOX        EmuOptChipNumList,130,10,60,80,CBS_DROPDOWNLIST | WS_TABSTOP
     GROUPBOX        "E&mulation Core",IDC_STATIC,10,30,245,30
-    CONTROL         "Default Core",EmuCoreRadio1,"Button",BS_AUTORADIOBUTTON,20,43,73,10
-    CONTROL         "Alternative Core",EmuCoreRadio2,"Button",BS_AUTORADIOBUTTON,96,43,72,10
+    CONTROL         "Default Core",EmuCoreRadio1,"Button",BS_AUTORADIOBUTTON,20,43,72,10
+    CONTROL         "Alternative Core",EmuCoreRadio2,"Button",BS_AUTORADIOBUTTON,95,43,72,10
+    CONTROL         "Alternative Core",EmuCoreRadio3,"Button",BS_AUTORADIOBUTTON,175,43,72,10
     GROUPBOX        "Panning",IDC_STATIC,10,65,245,95
     LTEXT           "&1",PanChn1Label,20,80,10,8
     CONTROL         "Slider1",PanChn1Slider,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,30,80,60,10
@@ -288,7 +289,6 @@ BEGIN
     CONTROL         "Slider1",PanChn14Slider,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,185,125,60,10
     LTEXT           "&F",PanChn15Label,175,140,10,8
     CONTROL         "Slider1",PanChn15Slider,"msctls_trackbar32",TBS_AUTOTICKS | WS_TABSTOP,185,140,60,10
-    CONTROL         "Alternative Core",EmuCoreRadio3,"Button",BS_AUTORADIOBUTTON,173,43,72,10
 END
 
 
@@ -300,6 +300,10 @@ END
 #ifdef APSTUDIO_INVOKED
 GUIDELINES DESIGNINFO
 BEGIN
+    DlgCfgTags, DIALOG
+    BEGIN
+    END
+
     DlgFileInfo, DIALOG
     BEGIN
     END
@@ -322,6 +326,11 @@ BEGIN
 END
 
 DlgCfgOptPan AFX_DIALOG_LAYOUT
+BEGIN
+    0
+END
+
+DlgCfgTags AFX_DIALOG_LAYOUT
 BEGIN
     0
 END

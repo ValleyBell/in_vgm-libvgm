@@ -834,6 +834,7 @@ void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 	{
 		if (fis != NULL && ! fis->_songInfo.tags.empty())
 		{
+			// TODO: fall back to file name as song title
 			std::string titleU8 = FormatVGMTag("%t (%g) - %a", *fis);
 			size_t titleSize = GETFILEINFO_TITLE_LENGTH;
 #ifndef UNICODE_INPUT_PLUGIN
