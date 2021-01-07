@@ -43,6 +43,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
 endif(CMAKE_COMPILER_IS_GNUCC)
 
 
+set(WINAMP_PLUGIN_PATH "" CACHE PATH "(optional) Winamp/Plugins directory for copying the plugin to after build")
+
+
 set(HEADERS
 	FileInfoStorage.hpp
 	in_vgm.h
@@ -74,3 +77,10 @@ add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES} ${RESORUCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 target_link_libraries(${PROJECT_NAME} PRIVATE libvgm::vgm-utils libvgm::vgm-emu libvgm::vgm-player comctl32)
 install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "bin")
+
+if (WINAMP_PLUGIN_PATH)
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${PROJECT_NAME}>" "${WINAMP_PLUGIN_PATH}/"
+		COMMENT "copy to Winamp Plugin dir for testing"
+	)
+endif()
