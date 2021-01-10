@@ -126,8 +126,6 @@ static UINT8 FilePlayCallback(PlayerBase* player, void* userParam, UINT8 evtType
 static DATA_LOADER* PlayerFileReqCallback(void* userParam, PlayerBase* player, const char* fileName);
 
 
-#define PATH_SIZE	(MAX_PATH * 2)
-
 // the output module (defined at the end of the file)
 extern In_Module WmpMod;
 
@@ -195,6 +193,8 @@ void About(HWND hWndParent)
 		INVGM_TITLE
 #ifdef UNICODE_INPUT_PLUGIN
 		" (Unicode build)"
+#else
+		" (ANSI build)"
 #endif
 		"\n"
 		"by Valley Bell 2020\n"

@@ -73,14 +73,26 @@ set(RESORUCES
 	images/tabicons.bmp
 )
 
+# ANSI version (in_vgm.dll)
 add_library(${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES} ${RESORUCES})
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 target_link_libraries(${PROJECT_NAME} PRIVATE libvgm::vgm-utils libvgm::vgm-emu libvgm::vgm-player comctl32)
-install(TARGETS ${PROJECT_NAME} RUNTIME DESTINATION "bin")
+
+# Unicode version (in_vgmW.dll)
+add_library(${PROJECT_NAME}W SHARED ${HEADERS} ${SOURCES} ${RESORUCES})
+target_include_directories(${PROJECT_NAME}W PRIVATE ${PROJECT_SOURCE_DIR})
+target_compile_definitions(${PROJECT_NAME}W PRIVATE UNICODE_INPUT_PLUGIN)
+target_link_libraries(${PROJECT_NAME}W PRIVATE libvgm::vgm-utils libvgm::vgm-emu libvgm::vgm-player comctl32)
+
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}W RUNTIME DESTINATION "bin")
 
 if (WINAMP_PLUGIN_PATH)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${PROJECT_NAME}>" "${WINAMP_PLUGIN_PATH}/"
+		COMMENT "copy to Winamp Plugin dir for testing"
+	)
+	add_custom_command(TARGET ${PROJECT_NAME}W POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:${PROJECT_NAME}W>" "${WINAMP_PLUGIN_PATH}/"
 		COMMENT "copy to Winamp Plugin dir for testing"
 	)
 endif()
