@@ -63,7 +63,7 @@ UINT32 EmuTypeNum2CoreFCC(UINT8 chipType, UINT8 emuType, bool* isSubType);
 void LoadConfiguration(PluginConfig& pCfg, const char* iniFileName);
 void SaveConfiguration(const PluginConfig& pCfg, const char* iniFileName);
 
-void ApplyCfg_General(PlayerA& player, const GeneralOptions& opts);
+void ApplyCfg_General(PlayerA& player, const GeneralOptions& opts, bool noLiveOpts = false);
 void ApplyCfg_Chip(PlayerA& player, const GeneralOptions& gOpts, const ChipOptions& cOpts);
 
 #endif	// __PLAYCFG_HPP__

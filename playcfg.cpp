@@ -611,7 +611,7 @@ static void SaveCfg_ChipSection(const ChipOptions& opts, const char* chipName)
 }
 
 
-void ApplyCfg_General(PlayerA& player, const GeneralOptions& opts)
+void ApplyCfg_General(PlayerA& player, const GeneralOptions& opts, bool noLiveOpts)
 {
 	const std::vector<PlayerBase*>& plrs = player.GetRegisteredPlayers();
 	size_t curPlr;
@@ -619,11 +619,14 @@ void ApplyCfg_General(PlayerA& player, const GeneralOptions& opts)
 	PlayerA::Config pwCfg;
 	
 	pwCfg = player.GetConfiguration();
-	pwCfg.masterVol = (INT32)(0x10000 * opts.volume + 0.5);
 	pwCfg.chnInvert = opts.pseudoSurround ? 0x02 : 0x00;
 	pwCfg.loopCount = opts.maxLoops;
-	pwCfg.fadeSmpls = MulDivRoundU32(opts.fadeTime, opts.smplRate, 1000);
-	pwCfg.endSilenceSmpls = MulDivRoundU32(opts.pauseTime_jingle, opts.smplRate, 1000);
+	if (! noLiveOpts)
+	{
+		pwCfg.masterVol = (INT32)(0x10000 * opts.volume + 0.5);
+		pwCfg.fadeSmpls = MulDivRoundU32(opts.fadeTime, opts.smplRate, 1000);
+		pwCfg.endSilenceSmpls = MulDivRoundU32(opts.pauseTime_jingle, opts.smplRate, 1000);
+	}
 	pwCfg.pbSpeed = 1.0;
 	player.SetConfiguration(pwCfg);
 	

@@ -442,7 +442,7 @@ static void PreparePlayback(void)
 	PlayerBase* player = mainPlayer.GetPlayer();
 	UINT32 timeMS;
 	
-	ApplyCfg_General(mainPlayer, pluginCfg.genOpts);
+	ApplyCfg_General(mainPlayer, pluginCfg.genOpts, true);
 	for (size_t curChp = 0; curChp < pluginCfg.chipOpts.size(); curChp ++)
 	{
 		for (size_t curCSet = 0; curCSet < 2; curCSet ++)
