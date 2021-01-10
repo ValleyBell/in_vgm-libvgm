@@ -36,7 +36,7 @@ private:
 	
 public:
 	std::string _fileNameA;	// currently playing file (used for getting info on the current file)
-	std::wstring _fileNameW;
+	std::wstring _fileNameW;	// file name as UTF-16
 	PlayerA* _player;		// either point to external PlayerA (-> playing file) or _myPlr (-> file scanning)
 	PlayerA _myPlr;
 	DATA_LOADER* _dLoad;

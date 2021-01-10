@@ -149,7 +149,7 @@ static bool GetExtendedFileInfoA(const std::string& fileName, const char* metaTy
 	}
 	else
 	{
-		UINT8 retVal = fisFileInfo->LoadSong(fileName, false);
+		UINT8 retVal = fisFileInfo->LoadSong(fileName, pluginCfg.genOpts.noInfoCache);
 		if (retVal & 0x80)
 			return false;	// loading failed
 		fis = fisFileInfo;
@@ -188,7 +188,7 @@ static bool GetExtendedFileInfoW(const std::wstring& fileName, const char* metaT
 	}
 	else
 	{
-		UINT8 retVal = fisFileInfo->LoadSong(fileName, false);
+		UINT8 retVal = fisFileInfo->LoadSong(fileName, pluginCfg.genOpts.noInfoCache);
 		if (retVal & 0x80)
 			return false;	// loading failed
 		fis = fisFileInfo;

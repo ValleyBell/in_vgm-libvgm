@@ -3,6 +3,8 @@
 #include <vector>
 #include <map>
 
+#include <windows.h>	// for charset conversion
+
 #include <stdtype.h>
 #include <utils/DataLoader.h>
 #include <utils/FileLoader.h>
@@ -54,22 +56,41 @@ PlayerA* FileInfoStorage::GetPlayer(void)
 
 void FileInfoStorage::SetFileName(const std::string& fileName)
 {
-	_fileNameW.clear();
 	_fileNameA = fileName;
+	
+	int bufSize = MultiByteToWideChar(CP_ACP, 0, _fileNameA.c_str(), _fileNameA.length(), NULL, 0);
+	if (bufSize <= 0)
+	{
+		_fileNameW.clear();
+		return;
+	}
+	_fileNameW.resize(bufSize);
+	MultiByteToWideChar(CP_ACP, 0, _fileNameA.c_str(), _fileNameA.length(), &_fileNameW[0], bufSize);
 	return;
 }
 
 void FileInfoStorage::SetFileName(const std::wstring& fileName)
 {
-	_fileNameA.clear();
 	_fileNameW = fileName;
+	
+	int bufSize = WideCharToMultiByte(CP_ACP, 0, _fileNameW.c_str(), _fileNameW.length(), NULL, 0, NULL, NULL);
+	if (bufSize <= 0)
+	{
+		_fileNameA.clear();
+		return;
+	}
+	_fileNameA.resize(bufSize);
+	WideCharToMultiByte(CP_ACP, 0, _fileNameW.c_str(), _fileNameW.length(), &_fileNameA[0], bufSize, NULL, NULL);
 	return;
 }
 
 UINT8 FileInfoStorage::LoadSong(const std::string& fileName, bool forceReload)
 {
 	if (! forceReload && fileName == _fileNameA)
+	{
+		// TODO: check file timestamp
 		return 0x00;
+	}
 	
 	SetFileName(fileName);
 	_dLoad = FileLoader_Init(fileName.c_str());
@@ -79,7 +100,10 @@ UINT8 FileInfoStorage::LoadSong(const std::string& fileName, bool forceReload)
 UINT8 FileInfoStorage::LoadSong(const std::wstring& fileName, bool forceReload)
 {
 	if (! forceReload && fileName == _fileNameW)
+	{
+		// TODO: check file timestamp
 		return 0x00;
+	}
 	
 	SetFileName(fileName);
 	_dLoad = FileLoader_InitW(fileName.c_str());
