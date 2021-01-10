@@ -62,10 +62,20 @@ void FileInfoStorage::SetFileName(const std::string& fileName)
 	if (bufSize <= 0)
 	{
 		_fileNameW.clear();
+		_fileNameU = _fileNameA;
 		return;
 	}
 	_fileNameW.resize(bufSize);
 	MultiByteToWideChar(CP_ACP, 0, _fileNameA.c_str(), _fileNameA.length(), &_fileNameW[0], bufSize);
+	
+	bufSize = WideCharToMultiByte(CP_UTF8, 0, _fileNameW.c_str(), _fileNameW.length(), NULL, 0, NULL, NULL);
+	if (bufSize <= 0)
+	{
+		_fileNameU = _fileNameA;
+		return;
+	}
+	_fileNameU.resize(bufSize);
+	WideCharToMultiByte(CP_UTF8, 0, _fileNameW.c_str(), _fileNameW.length(), &_fileNameU[0], bufSize, NULL, NULL);
 	return;
 }
 
@@ -77,10 +87,20 @@ void FileInfoStorage::SetFileName(const std::wstring& fileName)
 	if (bufSize <= 0)
 	{
 		_fileNameA.clear();
+		_fileNameU = _fileNameA;
 		return;
 	}
 	_fileNameA.resize(bufSize);
 	WideCharToMultiByte(CP_ACP, 0, _fileNameW.c_str(), _fileNameW.length(), &_fileNameA[0], bufSize, NULL, NULL);
+	
+	bufSize = WideCharToMultiByte(CP_UTF8, 0, _fileNameW.c_str(), _fileNameW.length(), NULL, 0, NULL, NULL);
+	if (bufSize <= 0)
+	{
+		_fileNameU.clear();
+		return;
+	}
+	_fileNameU.resize(bufSize);
+	WideCharToMultiByte(CP_UTF8, 0, _fileNameW.c_str(), _fileNameW.length(), &_fileNameU[0], bufSize, NULL, NULL);
 	return;
 }
 

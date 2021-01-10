@@ -35,7 +35,8 @@ private:
 	void SanitiseTags(void);
 	
 public:
-	std::string _fileNameA;	// currently playing file (used for getting info on the current file)
+	std::string _fileNameU;	// currently playing file [UTF-8] (used for getting info on the current file)
+	std::string _fileNameA;	// file name in current ANSI codepage
 	std::wstring _fileNameW;	// file name as UTF-16
 	PlayerA* _player;		// either point to external PlayerA (-> playing file) or _myPlr (-> file scanning)
 	PlayerA _myPlr;

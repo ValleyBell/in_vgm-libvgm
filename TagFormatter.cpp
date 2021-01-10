@@ -6,16 +6,17 @@
 #include "TagFormatter.hpp"
 
 
-static void FixSeparators(wchar_t** TextData);
-
 std::string FormatVGMTag(const char* format, const FileInfoStorage& fis)
 {
 	std::string result;
 	const char* fmtPtr;
 	std::vector<std::string> langPostfixes;
+	const char* fileTitle;
 	
 	langPostfixes.push_back("");
 	langPostfixes.push_back("-JPN");
+	
+	fileTitle = GetFileTitle(fis._fileNameU.c_str());
 	
 	for (fmtPtr = format; *fmtPtr != '\0'; fmtPtr ++)
 	{
@@ -62,6 +63,8 @@ std::string FormatVGMTag(const char* format, const FileInfoStorage& fis)
 			}
 			
 			const char* tagData = fis.GetTag(tagKeys);
+			if (tagData == NULL && varType == 'T')
+				tagData = fileTitle;	// fall back to file title when the title tag is missing
 			if (tagData != NULL)
 				result += tagData;
 			if (varType == 'G' && fis._songInfo.usesYM2413)
@@ -126,6 +129,7 @@ std::string FixSeparators(const std::string& text)
 	
 	result.reserve(text.size());
 	spcWrt = 0;
+	wroteSep = false;
 	for (srcPos = 0; srcPos < text.length(); srcPos++)
 	{
 		char srcChr = text[srcPos];
