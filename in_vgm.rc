@@ -36,7 +36,7 @@ MainIcon                ICON                    "icon.ico"
 
 TabIcons                BITMAP                  "images\\tabicons.bmp"
 
-LogoBitmap              BITMAP                  "images\\logo.bmp"
+LogoBitmap              BITMAP                  "images\\logo2.bmp"
 
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////

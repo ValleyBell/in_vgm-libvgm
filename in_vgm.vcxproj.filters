@@ -84,5 +84,8 @@
     <Image Include="images\logo.bmp">
       <Filter>Ressourcendateien</Filter>
     </Image>
+    <Image Include="images\logo2.bmp">
+      <Filter>Ressourcendateien</Filter>
+    </Image>
   </ItemGroup>
 </Project>

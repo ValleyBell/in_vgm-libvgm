@@ -119,6 +119,7 @@
   <ItemGroup>
     <Image Include="icon.ico" />
     <Image Include="images\logo.bmp" />
+    <Image Include="images\logo2.bmp" />
     <Image Include="images\tabicons.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
