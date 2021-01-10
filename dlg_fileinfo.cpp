@@ -336,7 +336,7 @@ static BOOL CALLBACK FileInfoDialogProc(HWND hWndDlg, UINT wMessage, WPARAM wPar
 			return TRUE;
 		case ConfigPluginButton:
 			Config(hWndDlg);
-			break;
+			return TRUE;
 		case LangEngCheck:
 		case LangJapCheck:
 		{
@@ -345,7 +345,7 @@ static BOOL CALLBACK FileInfoDialogProc(HWND hWndDlg, UINT wMessage, WPARAM wPar
 			DisplayTagString(hWndDlg, TrkAuthorText, *fisFileInfo, "ARTIST", true, langJap);
 			DisplayTagString(hWndDlg, GameNameText, *fisFileInfo, "GAME", true, langJap);
 			DisplayTagString(hWndDlg, GameSysText, *fisFileInfo, "SYSTEM", true, langJap);
-			break;
+			return TRUE;
 		}
 		case BrwsrInfoButton:
 			//InfoInBrowser(FileInfo_Name, UseMB, TRUE);

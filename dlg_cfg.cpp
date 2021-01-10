@@ -61,6 +61,7 @@ typedef BOOL (__stdcall *ITDTE_FUNC)(HWND hwnd);	// IsThemeDialogTextureEnabled
 
 
 // Function Prototypes from in_vgm.c
+const char* GetIniFilePath(void);
 FileInfoStorage* GetMainPlayerFIS(void);
 void RefreshPlaybackOptions(void);
 void RefreshMuting(void);
@@ -703,6 +704,12 @@ static BOOL CALLBACK CfgDlgOptPanProc(HWND hWndDlg, UINT wMessage, WPARAM wParam
 		case IDCANCEL:
 			EndDialog(hWndDlg, 1);
 			return TRUE;
+		case OpenINIButton:
+		{
+			const char* iniPath = GetIniFilePath();
+			int retVal = (int)ShellExecuteA(hWndDlg, "open", iniPath, NULL, NULL, SW_SHOW);
+			return (retVal >= 32) ? TRUE : FALSE;
+		}
 		case EmuCoreRadio1:
 		case EmuCoreRadio2:
 		case EmuCoreRadio3:

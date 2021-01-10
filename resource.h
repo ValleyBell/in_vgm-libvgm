@@ -123,6 +123,7 @@
 #define PanChn13Slider                  3033
 #define PanChn14Slider                  3034
 #define PanChn15Slider                  3035
+#define OpenINIButton                   3036
 
 // Next default values for new objects
 // 
@@ -130,7 +131,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        214
 #define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         3038
+#define _APS_NEXT_CONTROL_VALUE         3037
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

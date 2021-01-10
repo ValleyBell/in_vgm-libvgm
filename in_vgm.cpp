@@ -112,6 +112,8 @@ int GetOutputTime(void);
 void SetOutputTime(int time_in_ms);
 void SetVolume(int volume);
 void SetPan(int pan);
+const char* GetIniFilePath(void);
+FileInfoStorage* GetMainPlayerFIS(void);
 void RefreshPlaybackOptions(void);
 void RefreshMuting(void);
 void RefreshPanning(void);
@@ -694,6 +696,11 @@ void SetPan(int pan)
 {
 	WmpMod.outMod->SetPan(pan);
 	return;
+}
+
+const char* GetIniFilePath(void)
+{
+	return iniFilePath.c_str();
 }
 
 FileInfoStorage* GetMainPlayerFIS(void)
