@@ -10,6 +10,8 @@
 static const char* GetLastDirSeparator(const char* filePath);
 //const char* GetFileTitle(const char* filePath);
 //const char* GetFileExtension(const char* filePath);
+static const wchar_t* GetLastDirSeparator(const wchar_t* filePath);
+//const char* GetFileExtension(const wchar_t* filePath);
 //void StandardizeDirSeparators(std::string& filePath);
 static bool IsAbsolutePath(const char* filePath);
 //std::string CombinePaths(const std::string& basePath, const std::string& addPath);
@@ -52,6 +54,35 @@ const char* GetFileExtension(const char* filePath)
 	if (dirSepPos == NULL)
 		dirSepPos = filePath;
 	extDotPos = strrchr(dirSepPos, '.');
+	return (extDotPos == NULL) ? NULL : (extDotPos + 1);
+}
+
+static const wchar_t* GetLastDirSeparator(const wchar_t* filePath)
+{
+	const wchar_t* sepPos1;
+	const wchar_t* sepPos2;
+	
+	if (wcsncmp(filePath, L"\\\\", 2))
+		filePath += 2;	// skip Windows network prefix
+	sepPos1 = wcsrchr(filePath, L'/');
+	sepPos2 = wcsrchr(filePath, L'\\');
+	if (sepPos1 == NULL)
+		return sepPos2;
+	else if (sepPos2 == NULL)
+		return sepPos1;
+	else
+		return (sepPos1 < sepPos2) ? sepPos2 : sepPos1;
+}
+
+const wchar_t* GetFileExtension(const wchar_t* filePath)
+{
+	const wchar_t* dirSepPos;
+	const wchar_t* extDotPos;
+	
+	dirSepPos = GetLastDirSeparator(filePath);
+	if (dirSepPos == NULL)
+		dirSepPos = filePath;
+	extDotPos = wcsrchr(dirSepPos, L'.');
 	return (extDotPos == NULL) ? NULL : (extDotPos + 1);
 }
 

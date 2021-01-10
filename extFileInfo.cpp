@@ -166,8 +166,7 @@ static bool GetExtendedFileInfoW(const std::wstring& fileName, const char* metaT
 	}
 	else if (! stricmp(metaType, "family"))	// Winamp 5.5+ only
 	{
-		//const wchar_t* fileExt = GetFileExtensionW(fileName.c_str());
-		const wchar_t* fileExt = wcsrchr(fileName.c_str(), L'.');
+		const wchar_t* fileExt = GetFileExtension(fileName.c_str());
 		if (fileExt == NULL)
 			return false;
 		fileExt ++;
