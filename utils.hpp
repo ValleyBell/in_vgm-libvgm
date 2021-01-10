@@ -12,6 +12,7 @@
 
 const char* GetFileTitle(const char* filePath);
 const char* GetFileExtension(const char* filePath);
+const wchar_t* GetFileTitle(const wchar_t* filePath);
 const wchar_t* GetFileExtension(const wchar_t* filePath);
 void StandardizeDirSeparators(std::string& filePath);
 std::string CombinePaths(const std::string& basePath, const std::string& addPath);

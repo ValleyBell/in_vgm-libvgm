@@ -118,7 +118,6 @@ void RefreshPanning(void);
 void UpdatePlayback(void);
 
 int InfoDialog(const in_char* fileName, HWND hWnd);
-static const in_char* GetFileNameTitleWA(const in_char* fileName);
 extern "C" void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms);
 void EQ_Set(int on, char data[10], int preamp);
 
@@ -787,17 +786,6 @@ int InfoDialog(const in_char* fileName, HWND hWnd)
 	return FileInfoDlg_Show(WmpMod.hDllInstance, hWnd);
 }
 
-static const in_char* GetFileNameTitleWA(const in_char* fileName)
-{
-	const in_char* TempPnt;
-#ifndef UNICODE_INPUT_PLUGIN
-	TempPnt = strrchr(fileName, '\\');
-#else
-	TempPnt = wcsrchr(fileName, L'\\');
-#endif
-	return (TempPnt == NULL) ? fileName : (TempPnt + 1);
-}
-
 // This is an odd function. It is used to get the title and/or length of a track.
 // If filename is either NULL or of length 0, it means you should
 // return the info of LastFileName. Otherwise, return the information
@@ -834,7 +822,6 @@ void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 	{
 		if (fis != NULL && ! fis->_songInfo.tags.empty())
 		{
-			// TODO: fall back to file name as song title
 			std::string titleU8 = FormatVGMTag("%t (%g) - %a", *fis);
 			size_t titleSize = GETFILEINFO_TITLE_LENGTH;
 #ifndef UNICODE_INPUT_PLUGIN
@@ -849,9 +836,9 @@ void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 		{
 			const in_char* fName = (fis == fisMain) ? fileNamePlaying.c_str() : fileName;
 #ifdef UNICODE_INPUT_PLUGIN
-			wcsncpy(title, GetFileNameTitleWA(fName), GETFILEINFO_TITLE_LENGTH);
+			wcsncpy(title, GetFileTitle(fName), GETFILEINFO_TITLE_LENGTH);
 #else
-			strncpy(title, GetFileNameTitleWA(fName), GETFILEINFO_TITLE_LENGTH);
+			strncpy(title, GetFileTitle(fName), GETFILEINFO_TITLE_LENGTH);
 #endif
 		}
 		printf("    Title: %s|#\n", title);

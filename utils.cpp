@@ -11,6 +11,7 @@ static const char* GetLastDirSeparator(const char* filePath);
 //const char* GetFileTitle(const char* filePath);
 //const char* GetFileExtension(const char* filePath);
 static const wchar_t* GetLastDirSeparator(const wchar_t* filePath);
+//const wchar_t* GetFileTitle(const wchar_t* filePath);
 //const char* GetFileExtension(const wchar_t* filePath);
 //void StandardizeDirSeparators(std::string& filePath);
 static bool IsAbsolutePath(const char* filePath);
@@ -72,6 +73,14 @@ static const wchar_t* GetLastDirSeparator(const wchar_t* filePath)
 		return sepPos1;
 	else
 		return (sepPos1 < sepPos2) ? sepPos2 : sepPos1;
+}
+
+const wchar_t* GetFileTitle(const wchar_t* filePath)
+{
+	const wchar_t* dirSepPos;
+	
+	dirSepPos = GetLastDirSeparator(filePath);
+	return (dirSepPos != NULL) ? &dirSepPos[1] : filePath;
 }
 
 const wchar_t* GetFileExtension(const wchar_t* filePath)
