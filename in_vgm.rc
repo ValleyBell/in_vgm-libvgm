@@ -97,7 +97,7 @@ BEGIN
                     "Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,28,140,15
     CONTROL         "&Trim whitespace",TrimWhitespcCheck,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,44,140,10
     CONTROL         "Standardise &separators (to ,)",StdSeparatorsCheck,
-                    "Button",BS_AUTOCHECKBOX | WS_DISABLED | WS_TABSTOP,115,58,140,10
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,115,58,140,10
     GROUPBOX        "File type",IDC_STATIC,110,110,150,50
     LTEXT           "Return file &type ID:",IDC_STATIC,115,121,65,12,SS_CENTERIMAGE | NOT WS_GROUP
     EDITTEXT        MLTypeText,180,121,74,12,ES_RIGHT | ES_AUTOHSCROLL | ES_NUMBER

@@ -311,7 +311,7 @@ void FileInfoStorage::SanitiseTags(void)
 		for (it = _songInfo.tags.begin(); it != _songInfo.tags.end(); ++it)
 		{
 			if (it->first.substr(0, 6) == "ARTIST")
-				/*it->second = FixSeparators(it->second)*/;
+				it->second = FixSeparators(it->second);
 		}
 	}
 	

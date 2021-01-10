@@ -112,88 +112,56 @@ std::string EnforceCRLF(const std::string& text)
 	return result;
 }
 
-#define GOODSEP_CHR		L','
-
-static void FixSeparators(wchar_t** TextData)
+// fix Author-Tag (a;b;c -> a, b, c)
+std::string FixSeparators(const std::string& text)
 {
-	// Note: Reallocates memory for final string
-	static const wchar_t BADSEPS[] =
-	{	L';', L'/', L'\\', L'&', L'\xFF0C', L'\xFF0F', L'\xFF3C', 0x0000};
+	static const char BADSEPS[] = {';', '/', '\\', '&', '\0'};
+	//static const wchar_t BADSEPS[] = {L';', L'/', L'\\', L'&', L'\xFF0C', L'\xFF0F', L'\xFF3C', L'\0'};
+	#define GOODSEP_CHR		','
 	
-	wchar_t* TempStr;
-	wchar_t* SrcStr;
-	wchar_t* DstStr;
-	const wchar_t* ChkStr;
-	UINT32 StrSize;
-	UINT32 SpcWrt;
-	bool WroteSep;
+	size_t spcWrt;
+	bool wroteSep;
+	size_t srcPos;
+	std::string result;
 	
-	if (TextData == NULL || *TextData == NULL || ! wcslen(*TextData))
-		return;
-	
-	// fix Author-Tag (a;b;c -> a, b, c)
-	SrcStr = *TextData;
-	StrSize = 0x00;
-	WroteSep = false;
-	while(*SrcStr != L'\0')
+	result.reserve(text.size());
+	spcWrt = 0;
+	for (srcPos = 0; srcPos < text.length(); srcPos++)
 	{
-		if (WroteSep && ! (*(SrcStr + 1) == L' ' || *(SrcStr + 1) == 0x3000))
-			StrSize ++;	// need additional Space character
-		
-		ChkStr = BADSEPS;
-		while(*ChkStr != 0x0000)
+		char srcChr = text[srcPos];
+		const char* chkChr;
+		for (chkChr = BADSEPS; *chkChr != '\0'; chkChr++)
 		{
-			if (*SrcStr == *ChkStr)
+			if (srcChr == *chkChr)
 			{
-				// replace bad with good chars
-				*SrcStr = GOODSEP_CHR;
+				srcChr = *chkChr;
 				break;
 			}
-			ChkStr ++;
 		}
-		if (*SrcStr == GOODSEP_CHR)
-			WroteSep = true;
-		SrcStr ++;
-		StrSize ++;
-	}
-	StrSize ++;	// final \0 character
-	TempStr = (wchar_t*)malloc(StrSize * sizeof(wchar_t));
-	
-	SrcStr = *TextData;
-	DstStr = TempStr;
-	SpcWrt = 0;
-	WroteSep = false;
-	while(*SrcStr != L'\0')
-	{
-		if (*SrcStr == GOODSEP_CHR)
+		if (srcChr == GOODSEP_CHR)
 		{
-			WroteSep = true;
 			// trim spaces left of the seperator
-			DstStr -= SpcWrt;
-			SpcWrt = 0;
+			result.resize(result.size() - spcWrt);
+			spcWrt = 0;
+			result.push_back(srcChr);
+			wroteSep = true;
 		}
 		else
 		{
-			if (*SrcStr == L' ' || *SrcStr == 0x3000)
-				SpcWrt ++;
+			if (srcChr == ' ')
+				spcWrt ++;
 			else
-				SpcWrt = 0;
-			if (WroteSep && ! SpcWrt)
+				spcWrt = 0;
+			if (wroteSep && ! spcWrt)
 			{
 				// insert space after the seperator
-				*DstStr = L' ';
-				DstStr ++;
-				SpcWrt ++;
+				result.push_back(' ');
+				spcWrt ++;
 			}
-			WroteSep = false;
+			result.push_back(srcChr);
+			wroteSep = false;
 		}
-		*DstStr = *SrcStr;
-		SrcStr ++;
-		DstStr ++;
 	}
-	*DstStr = L'\0';
-	free(*TextData);
-	*TextData = TempStr;
 	
-	return;
+	return result;
 }
