@@ -1,0 +1,31 @@
+in_vgm v0.50.1
+--------------
+* completely rewritten using libvgm, featuring:
+    + Nuked OPL3 sound core
+    * some bugfixes to existing sound cores
+    * improved YMF278B (OPL4) emulation and OPL4 FM-PCM balance
+    + more accurate playback of YM2203/YM2608 FM when the song changes the clock mid-song (e.g. City Connection)
+    ! reduced default GameBoy DMG volume - it was overpowering everything else before
+    - removed some YM2612 hacks, so some YM2612 VGMs from Project2612 may not start as cleanly as with VGMPlay/in_vgm 0.40.x
+    - removed ES5505/5506 emulation (the old implementation was very hackish)
+    ! "NukedType" option has values 0 and 3 (filtered/unfiltered YM2612) swapped
+    ! file information caching is ignoring the file date again
+    + AY8910 panning (also works with YM2203/2608/2610 SSG)
+! removed RF5C164 options, it shares settings with the RF5C68 now
+! added separate options for C219, was sharing settings with C140 before
+- removed old in_vgm logo and replaced it with a placeholder to indicate the libvgm-based build
++ added a button that opens the in_vgm.ini file (useful for editing settings not available in the GUI)
++ S98/DRO support (enabled via .ini editing)
+
+
+in_vgm v0.50.0
+--------------
+no release, only VGMPlay had a release with this version
+
+
+----------------------------------------------------------------
+
++ feature added
+- feature removed
+* bugfix
+! changed functionality
