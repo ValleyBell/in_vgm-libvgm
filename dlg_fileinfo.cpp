@@ -251,8 +251,12 @@ static void DisplayTagString(HWND hWndDlg, int dlgItem, const FileInfoStorage& f
 		wchar_t* textWStr = NULL;
 		UINT8 retVal = CPConv_StrConvert(cpcU8_Wide, &textWLen, reinterpret_cast<char**>(&textWStr), 0, tagVal);
 		BOOL retB = FALSE;
-		if (retVal < 0x80)
+		if (retVal < 0x80 || textWLen > 0)
+		{
+			if (retVal > 0x00)
+				textWStr[textWLen / sizeof(wchar_t)] = L'\0';
 			retB = SetDlgItemTextW(hWndDlg, dlgItem, textWStr);
+		}
 		free(textWStr);
 		if (retB)
 			return;
@@ -263,8 +267,12 @@ static void DisplayTagString(HWND hWndDlg, int dlgItem, const FileInfoStorage& f
 		char* textAStr = NULL;
 		UINT8 retVal = CPConv_StrConvert(cpcU8_ACP, &textALen, &textAStr, 0, tagVal);
 		BOOL retB = FALSE;
-		if (retVal < 0x80)
+		if (retVal < 0x80 || textALen > 0)
+		{
+			if (retVal > 0x00)
+				textAStr[textALen] = '\0';
 			retB = SetDlgItemTextA(hWndDlg, dlgItem, textAStr);
+		}
 		free(textAStr);
 		if (retB)
 			return;

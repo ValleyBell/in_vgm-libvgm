@@ -864,13 +864,15 @@ static void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_
 		if (fis != NULL && ! fis->_songInfo.tags.empty())
 		{
 			std::string titleU8 = FormatVGMTag("%t (%g) - %a", *fis);
-			size_t titleSize = GETFILEINFO_TITLE_LENGTH;
+			size_t titleSize = GETFILEINFO_TITLE_LENGTH - sizeof(in_char);
 #ifndef UNICODE_INPUT_PLUGIN
 			CPConv_StrConvert(cpcU8_ACP, &titleSize, &title,
-							titleU8.length() + 1, titleU8.c_str());	// length()+1 to include the \0
+							titleU8.length(), titleU8.c_str());
+			title[titleSize] = '\0';
 #else
 			CPConv_StrConvert(cpcU8_Wide, &titleSize, reinterpret_cast<char**>(&title),
-							titleU8.length() + 1, titleU8.c_str());	// length()+1 to include the \0
+							titleU8.length(), titleU8.c_str());
+			title[titleSize / sizeof(wchar_t)] = L'\0';
 #endif
 		}
 		else

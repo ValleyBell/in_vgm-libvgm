@@ -314,8 +314,8 @@ DLL_EXPORT int winampGetExtendedFileInfoW(const wchar_t* wfilename, const char* 
 		printf("winampGetExtendedFileInfoW(\"%ls\", %s) -> %s\n", wfilename, metadata, retStr.c_str());
 		UINT8 retVal = CPConv_StrConvert(cpcU8_Wide, &outLen, reinterpret_cast<char**>(&ret),
 			retStr.length() + 1, retStr.c_str());
-		if (retVal & 0x80)
-			ret[0] = L'\0';
+		if (retVal > 0x00)
+			ret[outLen / sizeof(wchar_t)] = L'\0';
 	}
 	
 	return static_cast<int>(retVal);
@@ -336,8 +336,8 @@ DLL_EXPORT int winampGetExtendedFileInfo(const char* filename, const char* metad
 		printf("winampGetExtendedFileInfoA(\"%s\", %s) -> %s\n", filename, metadata, retStr.c_str());
 		UINT8 retVal = CPConv_StrConvert(cpcU8_ACP, &outLen, &ret,
 			retStr.length() + 1, retStr.c_str());
-		if (retVal & 0x80)
-			ret[0] = '\0';
+		if (retVal > 0x00)
+			ret[outLen] = '\0';
 	}
 	
 #if 0
