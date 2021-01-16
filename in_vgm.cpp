@@ -88,30 +88,30 @@ void DeinitExtFileInfo(void);
 
 // Function Prototypes
 //extern "C" BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
-void Config(HWND hWndParent);
-void About(HWND hWndParent);
-void Init(void);
-void Deinit(void);
+void Config(HWND hWndParent);	// Note: also used by dlg_fileinfo.cpp
+static void About(HWND hWndParent);
+static void Init(void);
+static void Deinit(void);
 
-int IsOurFile(const in_char* fn);
+static int IsOurFile(const in_char* fn);
 
 static inline UINT32 MulDivRound(UINT64 Number, UINT64 Numerator, UINT64 Denominator);
 static inline UINT32 MSec2Samples(UINT32 val, const PlayerA& player);
 static void PreparePlayback(void);
-int Play(const in_char* FileName);
-void Pause(void);
-void Unpause(void);
-int IsPaused(void);
-void Stop(void);
+static int Play(const in_char* FileName);
+static void Pause(void);
+static void Unpause(void);
+static int IsPaused(void);
+static void Stop(void);
 
 int GetPlrSongLengthMS(const PlayerA& plr);
 int GetPlrSongLengthMS(const FileInfoStorage::SongInfo& songInfo);
 int GetLength(void);
 
-int GetOutputTime(void);
-void SetOutputTime(int time_in_ms);
-void SetVolume(int volume);
-void SetPan(int pan);
+static int GetOutputTime(void);
+static void SetOutputTime(int time_in_ms);
+static void SetVolume(int volume);
+static void SetPan(int pan);
 const char* GetIniFilePath(void);
 FileInfoStorage* GetMainPlayerFIS(void);
 void RefreshPlaybackOptions(void);
@@ -119,9 +119,9 @@ void RefreshMuting(void);
 void RefreshPanning(void);
 void UpdatePlayback(void);
 
-int InfoDialog(const in_char* fileName, HWND hWnd);
-extern "C" void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms);
-void EQ_Set(int on, char data[10], int preamp);
+static int InfoDialog(const in_char* fileName, HWND hWnd);
+static void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms);
+static void EQ_Set(int on, char data[10], int preamp);
 
 static DWORD WINAPI DecodeThread(LPVOID b);
 static UINT8 FilePlayCallback(PlayerBase* player, void* userParam, UINT8 evtType, void* evtParam);
@@ -189,7 +189,7 @@ void Config(HWND hWndParent)
 	return;
 }
 
-void About(HWND hWndParent)
+static void About(HWND hWndParent)
 {
 	static const char* msgStr =
 		INVGM_TITLE
@@ -326,7 +326,7 @@ static void DetermineWinampIniPath(HMODULE hModule)
 	return;
 }
 
-void Init(void)
+static void Init(void)
 {
 	//AllocConsole();
 	//freopen("CONOUT$", "w", stdout);
@@ -394,12 +394,12 @@ void Init(void)
 			ApplyCfg_Chip(mainPlayer, pluginCfg.genOpts, cOpt);
 		}
 	}
-	printf("Everything loaded.\n");
+	//printf("Everything loaded.\n");
 	
 	return;
 }
 
-void Deinit(void)
+static void Deinit(void)
 {
 	// one-time deinit, such as memory freeing
 	SaveConfiguration(pluginCfg, iniFilePath.c_str());
@@ -419,7 +419,7 @@ void Deinit(void)
 	return;
 }
 
-int IsOurFile(const in_char* fn)
+static int IsOurFile(const in_char* fn)
 {
 	// used for detecting URL streams - currently unused.
 	// return ! strncmp(fn, "http://",7); to detect HTTP streams, etc
@@ -466,7 +466,7 @@ static void PreparePlayback(void)
 }
 
 // called when winamp wants to play a file
-int Play(const in_char* fileName)
+static int Play(const in_char* fileName)
 {
 	int maxlatency;
 	DWORD thread_id;
@@ -538,7 +538,7 @@ int Play(const in_char* fileName)
 	return 0; 
 }
 
-void Pause(void)
+static void Pause(void)
 {
 	PausePlay = true;
 	WmpMod.outMod->Pause(PausePlay);
@@ -546,7 +546,7 @@ void Pause(void)
 	return;
 }
 
-void Unpause(void)
+static void Unpause(void)
 {
 	PausePlay = false;
 	WmpMod.outMod->Pause(PausePlay);
@@ -554,12 +554,12 @@ void Unpause(void)
 	return;
 }
 
-int IsPaused(void)
+static int IsPaused(void)
 {
 	return PausePlay;
 }
 
-void Stop(void)
+static void Stop(void)
 {
 	if (InStopFunc)
 		return;
@@ -669,14 +669,14 @@ int GetLength(void)	// return length of playing track
 // returns current output position, in ms.
 // you could just use return mod.outMod->GetOutputTime(),
 // but the dsp plug-ins that do tempo changing tend to make that wrong.
-int GetOutputTime(void)
+static int GetOutputTime(void)
 {
 	if (seek_needed != -1)
 		return seek_needed;	// seeking in progress - return destination time
 	return decode_pos_ms + (WmpMod.outMod->GetOutputTime() - WmpMod.outMod->GetWrittenTime());
 }
 
-void SetOutputTime(int time_in_ms)	// for seeking
+static void SetOutputTime(int time_in_ms)	// for seeking
 {
 	// Winamp seems to send negative seeking values, when GetLength returns -1000.
 	if (time_in_ms < 0)
@@ -686,13 +686,13 @@ void SetOutputTime(int time_in_ms)	// for seeking
 	return;
 }
 
-void SetVolume(int volume)
+static void SetVolume(int volume)
 {
 	WmpMod.outMod->SetVolume(volume);
 	return;
 }
 
-void SetPan(int pan)
+static void SetPan(int pan)
 {
 	WmpMod.outMod->SetPan(pan);
 	return;
@@ -787,7 +787,7 @@ void UpdatePlayback(void)
 }
 
 
-int InfoDialog(const in_char* fileName, HWND hWnd)
+static int InfoDialog(const in_char* fileName, HWND hWnd)
 {
 	FileInfoDlg_LoadFile(fileName);
 	return FileInfoDlg_Show(WmpMod.hDllInstance, hWnd);
@@ -797,11 +797,11 @@ int InfoDialog(const in_char* fileName, HWND hWnd)
 // If filename is either NULL or of length 0, it means you should
 // return the info of LastFileName. Otherwise, return the information
 // for the file in filename.
-void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
+static void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 {
 	FileInfoStorage* fis = NULL;
 	
-	printf("GetFileInfo(\"%s\")\n", fileName);
+	//printf("GetFileInfo(\"%s\")\n", fileName);
 	// Note: If fileName is be NULL or empty, return info about the current file.
 	if (fileName == NULL || fileName[0x00] == '\0' || fileNamePlaying == fileName)
 	{
@@ -822,7 +822,7 @@ void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 			*length_in_ms = GetPlrSongLengthMS(mainPlayer);	// return based on "playing" setting
 		else
 			*length_in_ms = GetPlrSongLengthMS(fis->_songInfo);	// new file: use songInfo + fading settings from options
-		printf("    Length: %u ms\n", *length_in_ms);
+		//printf("    Length: %u ms\n", *length_in_ms);
 	}
 	
 	if (title != NULL) // get non-path portion of fileName
@@ -848,13 +848,13 @@ void GetFileInfo(const in_char* fileName, in_char* title, int* length_in_ms)
 			strncpy(title, GetFileTitle(fName), GETFILEINFO_TITLE_LENGTH);
 #endif
 		}
-		printf("    Title: %s|#\n", title);
+		//printf("    Title: %s|#\n", title);
 	}
 	
 	return;
 }
 
-void EQ_Set(int on, char data[10], int preamp)
+static void EQ_Set(int on, char data[10], int preamp)
 {
 	return;	// unsupported
 }
