@@ -293,6 +293,9 @@ static void LoadCfg_General(GeneralOptions& opts)
 	
 	opts.immediateUpdate	= ReadIniDef_Boolean("General",		"ImmdtUpdate",	false);
 	opts.noInfoCache		= ReadIniDef_Boolean("General",		"NoInfoCache",	false);
+	opts.fileTypes.vgm		= ReadIniDef_Boolean("General",		"FormatEnable_VGM",	true);
+	opts.fileTypes.s98		= ReadIniDef_Boolean("General",		"FormatEnable_S98",	false);
+	opts.fileTypes.dro		= ReadIniDef_Boolean("General",		"FormatEnable_DRO",	false);
 	
 	opts.smplRate			= ReadIniDef_Integer("Playback",	"SampleRate",	44100);
 	opts.fadeTime			= ReadIniDef_Integer("Playback",	"FadeTime",		5000);
@@ -489,6 +492,9 @@ static void SaveCfg_General(const GeneralOptions& opts)
 {
 	WriteIni_Boolean("General",		"ImmdtUpdate",	opts.immediateUpdate);
 	WriteIni_Boolean("General",		"NoInfoCache",	opts.noInfoCache);
+	WriteIni_Boolean("General",		"FormatEnable_VGM",	opts.fileTypes.vgm);
+	WriteIni_Boolean("General",		"FormatEnable_S98",	opts.fileTypes.s98);
+	WriteIni_Boolean("General",		"FormatEnable_DRO",	opts.fileTypes.dro);
 	
 	WriteIni_Integer("Playback",	"SampleRate",	opts.smplRate);
 	WriteIni_Integer("Playback",	"FadeTime",		opts.fadeTime);

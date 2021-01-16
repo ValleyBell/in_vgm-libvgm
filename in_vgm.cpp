@@ -90,6 +90,7 @@ void DeinitExtFileInfo(void);
 //extern "C" BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved);
 void Config(HWND hWndParent);	// Note: also used by dlg_fileinfo.cpp
 static void About(HWND hWndParent);
+static void GenerateFileExtList(void);
 static void Init(void);
 static void Deinit(void);
 
@@ -130,6 +131,7 @@ static DATA_LOADER* PlayerFileReqCallback(void* userParam, PlayerBase* player, c
 
 // the output module (defined at the end of the file)
 extern In_Module WmpMod;
+static std::string wmpFileExtList;
 
 static UINT32 decode_pos;			// current decoding position (depends on SampleRate)
 static int decode_pos_ms;			// Used for correcting DSP plug-in pitch changes
@@ -326,6 +328,35 @@ static void DetermineWinampIniPath(HMODULE hModule)
 	return;
 }
 
+static const char* const FILETYPE_LIST[] =
+{
+	"vgm;vgz", "VGM Audio Files (*.vgm; *.vgz)",
+	"s98", "T98 Sound Log Files (*.s98)",
+	"dro", "DOSBox Raw OPL Files (*.dro)",
+};
+
+static void GenerateFileExtList(void)
+{
+	wmpFileExtList = std::string();
+	if (pluginCfg.genOpts.fileTypes.vgm)
+	{
+		wmpFileExtList += FILETYPE_LIST[0];	wmpFileExtList += '\0';
+		wmpFileExtList += FILETYPE_LIST[1];	wmpFileExtList += '\0';
+	}
+	if (pluginCfg.genOpts.fileTypes.s98)
+	{
+		wmpFileExtList += FILETYPE_LIST[2];	wmpFileExtList += '\0';
+		wmpFileExtList += FILETYPE_LIST[3];	wmpFileExtList += '\0';
+	}
+	if (pluginCfg.genOpts.fileTypes.dro)
+	{
+		wmpFileExtList += FILETYPE_LIST[4];	wmpFileExtList += '\0';
+		wmpFileExtList += FILETYPE_LIST[5];	wmpFileExtList += '\0';
+	}
+	wmpFileExtList += '\0';	// final terminator
+	return;
+}
+
 static void Init(void)
 {
 	//AllocConsole();
@@ -361,6 +392,9 @@ static void Init(void)
 	}
 	
 	LoadConfiguration(pluginCfg, iniFilePath.c_str());
+	
+	GenerateFileExtList();
+	WmpMod.FileExtensions = &wmpFileExtList[0];
 	
 	mainPlayer.RegisterPlayerEngine(new VGMPlayer);
 	mainPlayer.RegisterPlayerEngine(new S98Player);
@@ -964,8 +998,7 @@ static In_Module WmpMod =
 	NULL,	// hMainWindow (filled in by winamp)
 	NULL,	// hDllInstance (filled in by winamp)
 	// Format List: "EXT\0Description\0EXT\0Description\0 ..."
-	"vgm;vgz\0VGM Audio Files (*.vgm; *.vgz)\0",
-	//"vgm;vgz\0VGM Audio Files (*.vgm; *.vgz)\0vgm7z\0VGM7Z Archive (*.vgm7z)\0",
+	"vgm;vgz\0VGM Audio Files (*.vgm; *.vgz)\0",	// NOTE: replaced with wmpFileExtList during Init()
 	1,	// is_seekable
 	IN_MODULE_FLAG_USES_OUTPUT_PLUGIN,
 	Config,

@@ -35,6 +35,12 @@ struct GeneralOptions
 	bool stdSeparators;
 	bool fidTagFallback;	// Jap/Eng tag fallback for file info dialogue
 	UINT32 mediaLibFileType;
+	struct
+	{
+		bool vgm;
+		bool s98;
+		bool dro;
+	} fileTypes;
 };
 struct ChipOptions
 {
