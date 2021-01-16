@@ -138,7 +138,7 @@ std::string FixSeparators(const std::string& text)
 		{
 			if (srcChr == *chkChr)
 			{
-				srcChr = *chkChr;
+				srcChr = GOODSEP_CHR;
 				break;
 			}
 		}
