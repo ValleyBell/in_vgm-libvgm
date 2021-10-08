@@ -262,7 +262,7 @@ static int LoadConfigDialogInfo(HWND hWndDlg)
 	
 	LoopTimeMode = false;
 	SetDlgItemInt(CfgPlayback, LoopText, gOpts.maxLoops, FALSE);
-	SetDlgItemInt(CfgPlayback, FadeText, gOpts.fadeTime, FALSE );
+	SetDlgItemInt(CfgPlayback, FadeText, gOpts.fadeTime, FALSE);
 	SetDlgItemInt(CfgPlayback, PauseNlText, gOpts.pauseTime_jingle, FALSE);
 	SetDlgItemInt(CfgPlayback, PauseLpText, gOpts.pauseTime_loop, FALSE);
 	

@@ -193,7 +193,7 @@ void FileInfoStorage::ReadSongInfo(void)
 	_songInfo.songLen1 = _player->GetTotalTime(0);
 	_songInfo.songLenL = _player->GetTotalTime(1);
 	_songInfo.loopLen = _player->GetLoopTime();
-	_songInfo.volGain = 1.0;
+	_songInfo.volGain = _songInfo.psi.volGain / (double)0x10000;
 	if (filePlr->GetPlayerType() == FCC_VGM)
 	{
 		VGMPlayer* vgmplay = dynamic_cast<VGMPlayer*>(filePlr);
@@ -202,7 +202,6 @@ void FileInfoStorage::ReadSongInfo(void)
 		sprintf(verStr, "VGM %X.%02X", (vgmhdr->fileVer >> 8) & 0xFF, (vgmhdr->fileVer >> 0) & 0xFF);
 		_songInfo.dataStartPos = vgmhdr->dataOfs;
 		_songInfo.dataEndPos = vgmhdr->dataEnd;
-		_songInfo.volGain = pow(2.0, vgmhdr->volumeGain / (double)0x100);
 	}
 	else if (filePlr->GetPlayerType() == FCC_S98)
 	{

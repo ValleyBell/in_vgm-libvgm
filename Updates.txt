@@ -2,6 +2,7 @@ in_vgm v0.50.1
 --------------
 * completely rewritten using libvgm, featuring:
     + Nuked OPL3 sound core
+    + Nuked OPM sound core
     * some bugfixes to existing sound cores
     * improved YMF278B (OPL4) emulation and OPL4 FM-PCM balance
     + more accurate playback of YM2203/YM2608 FM when the song changes the clock mid-song (e.g. City Connection)

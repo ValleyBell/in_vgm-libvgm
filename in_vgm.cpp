@@ -488,8 +488,11 @@ static void PreparePlayback(void)
 		}
 	}
 	
-	INT32 volume = (INT32)(0x10000 * fisMain->_songInfo.volGain * pluginCfg.genOpts.volume + 0.5);
-	mainPlayer.SetMasterVolume(volume);
+	if (mainPlayer.GetPlayer()->GetPlayerType() == FCC_VGM)
+	{
+		VGMPlayer* vgmplay = dynamic_cast<VGMPlayer*>(mainPlayer.GetPlayer());
+		mainPlayer.SetLoopCount(vgmplay->GetModifiedLoopCount(pluginCfg.genOpts.maxLoops));
+	}
 	
 	mainPlayer.SetFadeSamples(MSec2Samples(pluginCfg.genOpts.fadeTime, mainPlayer));
 	
@@ -744,7 +747,7 @@ FileInfoStorage* GetMainPlayerFIS(void)
 
 void RefreshPlaybackOptions(void)
 {
-	INT32 volume = (INT32)(0x10000 * fisMain->_songInfo.volGain * pluginCfg.genOpts.volume + 0.5);
+	INT32 volume = (INT32)(0x10000 * pluginCfg.genOpts.volume + 0.5);
 	mainPlayer.SetMasterVolume(volume);
 	
 	return;

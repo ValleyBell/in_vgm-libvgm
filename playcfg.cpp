@@ -427,7 +427,7 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 	case DEVID_YM2608:
 	case DEVID_YM2610:
 		//sprintf(tempStr, "%s Disable AY", chipName);
-		//opts.chipDisable |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? 0x02 : 0x00;
+		//op6ts.chipDisable |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? 0x02 : 0x00;
 		break;
 	case DEVID_YMF278B:
 		//sprintf(tempStr, "%s Disable FM", chipName);
@@ -445,7 +445,7 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 		sprintf(tempStr, "%s DMC Opts", chipName);
 		opts.addOpts |= (ReadIniDef_Integer("ChipOpts", tempStr, 0x3B) & 0x3F) << 4;
 		sprintf(tempStr, "%s FDS Opts", chipName);
-		opts.addOpts |= (ReadIniDef_Integer("ChipOpts", tempStr, 0x03) & 0x03) << 10;
+		opts.addOpts |= (ReadIniDef_Integer("ChipOpts", tempStr, 0x00) & 0x03) << 10;
 		break;
 	case DEVID_OKIM6258:
 		sprintf(tempStr, "%s Internal 10bit", chipName);

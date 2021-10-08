@@ -18,9 +18,8 @@ find_package(Iconv QUIET)
 find_package(libvgm REQUIRED)
 
 if(MSVC)
-	set(CMAKE_DEBUG_POSTFIX "d")
 	if(NOT MSVC_VERSION LESS 1400)
-		add_definitions("/D _CRT_SECURE_NO_WARNINGS")
+		add_compile_definitions("_CRT_SECURE_NO_WARNINGS")
 	endif()
 endif()
 
