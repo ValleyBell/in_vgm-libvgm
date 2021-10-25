@@ -427,7 +427,7 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 	case DEVID_YM2608:
 	case DEVID_YM2610:
 		//sprintf(tempStr, "%s Disable AY", chipName);
-		//op6ts.chipDisable |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? 0x02 : 0x00;
+		//opts.chipDisable |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? 0x02 : 0x00;
 		break;
 	case DEVID_YMF278B:
 		//sprintf(tempStr, "%s Disable FM", chipName);
