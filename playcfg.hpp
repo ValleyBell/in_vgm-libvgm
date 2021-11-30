@@ -40,6 +40,7 @@ struct GeneralOptions
 		bool vgm;
 		bool s98;
 		bool dro;
+		bool gym;
 	} fileTypes;
 };
 struct ChipOptions

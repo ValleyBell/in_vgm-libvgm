@@ -37,6 +37,7 @@ extern "C"
 #include <player/vgmplayer.hpp>
 #include <player/s98player.hpp>
 #include <player/droplayer.hpp>
+#include <player/gymplayer.hpp>
 #include <player/playera.hpp>
 
 #include "utils.hpp"
@@ -333,6 +334,7 @@ static const char* const FILETYPE_LIST[] =
 	"vgm;vgz", "VGM Audio Files (*.vgm; *.vgz)",
 	"s98", "T98 Sound Log Files (*.s98)",
 	"dro", "DOSBox Raw OPL Files (*.dro)",
+	"gym", "Genecyst Sound Files (*.gym)",
 };
 
 static void GenerateFileExtList(void)
@@ -352,6 +354,11 @@ static void GenerateFileExtList(void)
 	{
 		wmpFileExtList += FILETYPE_LIST[4];	wmpFileExtList += '\0';
 		wmpFileExtList += FILETYPE_LIST[5];	wmpFileExtList += '\0';
+	}
+	if (pluginCfg.genOpts.fileTypes.gym)
+	{
+		wmpFileExtList += FILETYPE_LIST[6];	wmpFileExtList += '\0';
+		wmpFileExtList += FILETYPE_LIST[7];	wmpFileExtList += '\0';
 	}
 	wmpFileExtList += '\0';	// final terminator
 	return;
@@ -399,6 +406,7 @@ static void Init(void)
 	mainPlayer.RegisterPlayerEngine(new VGMPlayer);
 	mainPlayer.RegisterPlayerEngine(new S98Player);
 	mainPlayer.RegisterPlayerEngine(new DROPlayer);
+	mainPlayer.RegisterPlayerEngine(new GYMPlayer);
 	mainPlayer.SetEventCallback(FilePlayCallback, NULL);
 	mainPlayer.SetFileReqCallback(PlayerFileReqCallback, NULL);
 	fisMain = new FileInfoStorage(&mainPlayer);

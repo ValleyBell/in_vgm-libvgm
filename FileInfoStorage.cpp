@@ -12,6 +12,7 @@
 #include <player/vgmplayer.hpp>
 #include <player/s98player.hpp>
 #include <player/droplayer.hpp>
+#include <player/gymplayer.hpp>
 #include <player/playera.hpp>
 #include <emu/SoundDevs.h>
 #include <emu/SoundEmu.h>	// for SndEmu_GetDevName()
@@ -33,6 +34,7 @@ FileInfoStorage::FileInfoStorage(PlayerA* playerPtr)
 		_myPlr.RegisterPlayerEngine(new VGMPlayer);
 		_myPlr.RegisterPlayerEngine(new S98Player);
 		_myPlr.RegisterPlayerEngine(new DROPlayer);
+		_myPlr.RegisterPlayerEngine(new GYMPlayer);
 		_player = &_myPlr;
 	}
 	_dLoad = NULL;
@@ -216,6 +218,18 @@ void FileInfoStorage::ReadSongInfo(void)
 		const DRO_HEADER* drohdr = droplay->GetFileHeader();
 		
 		sprintf(verStr, "DRO v%u", drohdr->verMajor);	// DRO has a "verMinor" field, but it's always 0
+	}
+	else if (filePlr->GetPlayerType() == FCC_GYM)
+	{
+		GYMPlayer* gymplay = dynamic_cast<GYMPlayer*>(filePlr);
+		const GYM_HEADER* gymhdr = gymplay->GetFileHeader();
+		
+		if (! gymhdr->hasHeader)
+			strcpy(verStr, "GYM");	// raw GYM
+		else if (gymhdr->uncomprSize == 0)
+			strcpy(verStr, "GYMX");	// GYM with GYMX header, uncompressed
+		else
+			strcpy(verStr, "GYMX (z)");	// GYMX, compressed
 	}
 	_songInfo.verStr = verStr;
 	if (_songInfo.songLen1 <= 0.01)
