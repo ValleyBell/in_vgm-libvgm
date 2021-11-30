@@ -416,10 +416,10 @@ static void Init(void)
 	mainPlayer.SetFileReqCallback(PlayerFileReqCallback, NULL);
 	fisMain = new FileInfoStorage(&mainPlayer);
 	
-	fisScan = new FileInfoStorage(nullptr);
+	fisScan = new FileInfoStorage(NULL);
 	PlayerA* fileScanPlayer = fisScan->GetPlayer();
 	
-	fisFileInfo = new FileInfoStorage(nullptr);
+	fisFileInfo = new FileInfoStorage(NULL);
 	
 	InitFileInfoDialog(fisFileInfo);
 	// Let's just assume that Winamp doesn't call GetFileInfo() and GetExtendedFileInfo() in parallel
