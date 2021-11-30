@@ -297,6 +297,7 @@ static void LoadCfg_General(GeneralOptions& opts)
 	opts.fileTypes.gym		= ReadIniDef_Boolean("General",		"FormatEnable_GYM",	false);
 	
 	opts.smplRate			= ReadIniDef_Integer("Playback",	"SampleRate",	44100);
+	opts.smplBits			= ReadIniDef_Integer("Playback",	"SampleBits",	16);
 	opts.fadeTime			= ReadIniDef_Integer("Playback",	"FadeTime",		5000);
 	opts.pauseTime_jingle	= ReadIniDef_Integer("Playback",	"PauseNoLoop",	1000);
 	opts.pauseTime_loop		= ReadIniDef_Integer("Playback",	"PauseLoop",	0);
@@ -497,6 +498,7 @@ static void SaveCfg_General(const GeneralOptions& opts)
 	WriteIni_Boolean("General",		"FormatEnable_GYM",	opts.fileTypes.gym);
 	
 	WriteIni_Integer("Playback",	"SampleRate",	opts.smplRate);
+	WriteIni_Integer("Playback",	"SampleBits",	opts.smplBits);
 	WriteIni_Integer("Playback",	"FadeTime",		opts.fadeTime);
 	WriteIni_Integer("Playback",	"PauseNoLoop",	opts.pauseTime_jingle);
 	WriteIni_Integer("Playback",	"PauseLoop",	opts.pauseTime_loop);

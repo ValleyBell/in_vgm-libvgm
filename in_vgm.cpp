@@ -62,11 +62,12 @@ typedef std::string 	in2string;
 
 
 #define NUM_CHN			2
-#define BIT_PER_SEC		16
+#define BIT_PER_SEC		pluginCfg.genOpts.smplBits
 #define SMPL_BYTES		(NUM_CHN * BIT_PER_SEC / 8)
 
 #define RENDER_SAMPLES	576	// visualizations look best with 576 samples
 #define BLOCK_SIZE		(RENDER_SAMPLES * SMPL_BYTES)
+#define BLOCK_SIZE_MAX	(RENDER_SAMPLES * 4)	// assume up to 32-bit samples
 
 
 // Function Prototypes from dlg_cfg.c
@@ -399,6 +400,10 @@ static void Init(void)
 	}
 	
 	LoadConfiguration(pluginCfg, iniFilePath.c_str());
+	if (pluginCfg.genOpts.smplBits < 8)
+		pluginCfg.genOpts.smplBits = 8;	// prevent Winamp *output* plugins from crashing due to div-by-0
+	else if (pluginCfg.genOpts.smplBits > 32)
+		pluginCfg.genOpts.smplBits = 32;	// prevent buffer overflow (BLOCK_SIZE_MAX allows up to 32 bits only)
 	
 	GenerateFileExtList();
 	WmpMod.FileExtensions = &wmpFileExtList[0];
@@ -909,7 +914,7 @@ static void EQ_Set(int on, char data[10], int preamp)
 
 static DWORD WINAPI DecodeThread(LPVOID b)
 {
-	char smplBuffer[BLOCK_SIZE * 2];	// has to be twice as big as the blocksize
+	char smplBuffer[BLOCK_SIZE_MAX * 2];	// has to be twice as big as the blocksize
 	
 	SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_ABOVE_NORMAL);
 	

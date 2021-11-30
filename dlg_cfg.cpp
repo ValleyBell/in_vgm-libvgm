@@ -878,7 +878,7 @@ static void ShowMutingCheckBoxes(UINT8 ChipID, UINT8 ChipSet)
 		SpcName[11] = "&Tom Tom";
 		SpcName[12] = "C&ymbal";
 		SpcName[13] = "&Hi-Hat";
-		if (ChipID == DEVID_Y8950)
+		if (muteCOpts->chipType == DEVID_Y8950)
 		{
 			ChnCount = 15;
 			SpcName[14] = "&Delta-T";
