@@ -14,21 +14,18 @@
     <ProjectGuid>{063BAEA5-7CD0-4D1C-8F28-30A596943F74}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>in_vgm</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -46,9 +43,8 @@
     <LibraryPath>D:\VStudio-Programme\VC2010\libvgm\build-vs2017\bin\Debug;D:\VStudio-Programme\VC2010\libvgm\libs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\VStudio-Programme\VC2010\libvgm;D:\VStudio-Programme\VC2010\libvgm\libs\include;D:\VStudio-Programme\VC2010\libvgm\libs\iconv\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\VStudio-Programme\VC2010\libvgm\build-vs2017\install\lib;D:\VStudio-Programme\VC2010\libvgm\libs\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>libvgm\;libvgm\libs\include;libvgm\libs\iconv\include;libvgm\libs\include_vc;$(IncludePath)</IncludePath>
+    <LibraryPath>libvgm\libs\lib;libvgm\bin;libvgm\libs\iconv\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -71,23 +67,22 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;NDEBUG;_WINDOWS;_USRDLL;IN_VGM_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>AUDDRV_WAVEWRITE;AUDDRV_WINMM;AUDDRV_DSOUND;AUDDRV_XAUD2;AUDDRV_WASAPI;WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>vgm-utils_Win32.lib;vgm-emu_Win32.lib;vgm-player_Win32.lib;zlib.lib;D:\VStudio-Programme\VC2010\libvgm\libs\lib\zdll.lib;D:\VStudio-Programme\VC2010\libvgm\libs\iconv\lib\libiconv.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlib.lib;zdll.lib;libiconv.lib;comctl32.lib;winmm.lib;dsound.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(TargetPath) $(ProjectDir)WinampTest\Plugins\</Command>
-      <Message>copy to Winamp Plugin dir for testing</Message>
+      <Command>
+      </Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -100,6 +95,102 @@
     <ClCompile Include="FileInfoStorage.cpp" />
     <ClCompile Include="ini_func.c" />
     <ClCompile Include="in_vgm.cpp" />
+    <ClCompile Include="libvgm\audio\AudDrv_DSound.cpp" />
+    <ClCompile Include="libvgm\audio\AudDrv_WASAPI.cpp" />
+    <ClCompile Include="libvgm\audio\AudDrv_WaveWriter.c" />
+    <ClCompile Include="libvgm\audio\AudDrv_WinMM.c" />
+    <ClCompile Include="libvgm\audio\AudDrv_XAudio2.cpp" />
+    <ClCompile Include="libvgm\audio\AudioStream.c" />
+    <ClCompile Include="libvgm\emu\cores\2151intf.c" />
+    <ClCompile Include="libvgm\emu\cores\2413intf.c" />
+    <ClCompile Include="libvgm\emu\cores\2612intf.c" />
+    <ClCompile Include="libvgm\emu\cores\262intf.c" />
+    <ClCompile Include="libvgm\emu\cores\adlibemu_opl2.c" />
+    <ClCompile Include="libvgm\emu\cores\adlibemu_opl3.c" />
+    <ClCompile Include="libvgm\emu\cores\ay8910.c" />
+    <ClCompile Include="libvgm\emu\cores\ayintf.c" />
+    <ClCompile Include="libvgm\emu\cores\c140.c" />
+    <ClCompile Include="libvgm\emu\cores\c219.c" />
+    <ClCompile Include="libvgm\emu\cores\c352.c" />
+    <ClCompile Include="libvgm\emu\cores\c6280intf.c" />
+    <ClCompile Include="libvgm\emu\cores\c6280_mame.c" />
+    <ClCompile Include="libvgm\emu\cores\emu2149.c" />
+    <ClCompile Include="libvgm\emu\cores\emu2413.c" />
+    <ClCompile Include="libvgm\emu\cores\es5503.c" />
+    <ClCompile Include="libvgm\emu\cores\es5506.c" />
+    <ClCompile Include="libvgm\emu\cores\fmopl.c" />
+    <ClCompile Include="libvgm\emu\cores\fmopn.c" />
+    <ClCompile Include="libvgm\emu\cores\gb.c" />
+    <ClCompile Include="libvgm\emu\cores\iremga20.c" />
+    <ClCompile Include="libvgm\emu\cores\k051649.c" />
+    <ClCompile Include="libvgm\emu\cores\k053260.c" />
+    <ClCompile Include="libvgm\emu\cores\k054539.c" />
+    <ClCompile Include="libvgm\emu\cores\multipcm.c" />
+    <ClCompile Include="libvgm\emu\cores\nesintf.c" />
+    <ClCompile Include="libvgm\emu\cores\nes_apu.c" />
+    <ClCompile Include="libvgm\emu\cores\np_nes_apu.c" />
+    <ClCompile Include="libvgm\emu\cores\np_nes_dmc.c" />
+    <ClCompile Include="libvgm\emu\cores\np_nes_fds.c" />
+    <ClCompile Include="libvgm\emu\cores\nukedopl3.c" />
+    <ClCompile Include="libvgm\emu\cores\nukedopll.c" />
+    <ClCompile Include="libvgm\emu\cores\nukedopm.c" />
+    <ClCompile Include="libvgm\emu\cores\okiadpcm.c" />
+    <ClCompile Include="libvgm\emu\cores\okim6258.c" />
+    <ClCompile Include="libvgm\emu\cores\okim6295.c" />
+    <ClCompile Include="libvgm\emu\cores\Ootake_PSG.c" />
+    <ClCompile Include="libvgm\emu\cores\oplintf.c" />
+    <ClCompile Include="libvgm\emu\cores\opnintf.c" />
+    <ClCompile Include="libvgm\emu\cores\pokey.c" />
+    <ClCompile Include="libvgm\emu\cores\pwm.c" />
+    <ClCompile Include="libvgm\emu\cores\qsoundintf.c" />
+    <ClCompile Include="libvgm\emu\cores\qsound_ctr.c" />
+    <ClCompile Include="libvgm\emu\cores\qsound_mame.c" />
+    <ClCompile Include="libvgm\emu\cores\rf5c68.c" />
+    <ClCompile Include="libvgm\emu\cores\rf5cintf.c" />
+    <ClCompile Include="libvgm\emu\cores\saa1099_mame.c" />
+    <ClCompile Include="libvgm\emu\cores\saa1099_vb.c" />
+    <ClCompile Include="libvgm\emu\cores\saaintf.c" />
+    <ClCompile Include="libvgm\emu\cores\scd_pcm.c" />
+    <ClCompile Include="libvgm\emu\cores\scsp.c" />
+    <ClCompile Include="libvgm\emu\cores\scspdsp.c" />
+    <ClCompile Include="libvgm\emu\cores\segapcm.c" />
+    <ClCompile Include="libvgm\emu\cores\sn76489.c" />
+    <ClCompile Include="libvgm\emu\cores\sn76496.c" />
+    <ClCompile Include="libvgm\emu\cores\sn764intf.c" />
+    <ClCompile Include="libvgm\emu\cores\upd7759.c" />
+    <ClCompile Include="libvgm\emu\cores\vsu.c" />
+    <ClCompile Include="libvgm\emu\cores\ws_audio.c" />
+    <ClCompile Include="libvgm\emu\cores\x1_010.c" />
+    <ClCompile Include="libvgm\emu\cores\ym2151.c" />
+    <ClCompile Include="libvgm\emu\cores\ym2413.c" />
+    <ClCompile Include="libvgm\emu\cores\ym2612.c" />
+    <ClCompile Include="libvgm\emu\cores\ym3438.c" />
+    <ClCompile Include="libvgm\emu\cores\ymdeltat.c" />
+    <ClCompile Include="libvgm\emu\cores\ymf262.c" />
+    <ClCompile Include="libvgm\emu\cores\ymf271.c" />
+    <ClCompile Include="libvgm\emu\cores\ymf278b.c" />
+    <ClCompile Include="libvgm\emu\cores\ymz280b.c" />
+    <ClCompile Include="libvgm\emu\dac_control.c" />
+    <ClCompile Include="libvgm\emu\logging.c" />
+    <ClCompile Include="libvgm\emu\panning.c" />
+    <ClCompile Include="libvgm\emu\Resampler.c" />
+    <ClCompile Include="libvgm\emu\SoundEmu.c" />
+    <ClCompile Include="libvgm\player\dblk_compr.c" />
+    <ClCompile Include="libvgm\player\droplayer.cpp" />
+    <ClCompile Include="libvgm\player\gymplayer.cpp" />
+    <ClCompile Include="libvgm\player\helper.c" />
+    <ClCompile Include="libvgm\player\playera.cpp" />
+    <ClCompile Include="libvgm\player\playerbase.cpp" />
+    <ClCompile Include="libvgm\player\s98player.cpp" />
+    <ClCompile Include="libvgm\player\vgmplayer.cpp" />
+    <ClCompile Include="libvgm\player\vgmplayer_cmdhandler.cpp" />
+    <ClCompile Include="libvgm\utils\DataLoader.c" />
+    <ClCompile Include="libvgm\utils\FileLoader.c" />
+    <ClCompile Include="libvgm\utils\MemoryLoader.c" />
+    <ClCompile Include="libvgm\utils\OSMutex_Win.c" />
+    <ClCompile Include="libvgm\utils\OSSignal_Win.c" />
+    <ClCompile Include="libvgm\utils\OSThread_Win.c" />
+    <ClCompile Include="libvgm\utils\StrUtils-CPConv_Win.c" />
     <ClCompile Include="playcfg.cpp" />
     <ClCompile Include="TagFormatter.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -108,6 +199,120 @@
     <ClInclude Include="FileInfoStorage.hpp" />
     <ClInclude Include="ini_func.h" />
     <ClInclude Include="in_vgm.h" />
+    <ClInclude Include="libvgm\audio\AudioStream.h" />
+    <ClInclude Include="libvgm\audio\AudioStream_LstFuncs.h" />
+    <ClInclude Include="libvgm\audio\AudioStream_SpcDrvFuns.h" />
+    <ClInclude Include="libvgm\audio\AudioStructs.h" />
+    <ClInclude Include="libvgm\emu\cores\2151intf.h" />
+    <ClInclude Include="libvgm\emu\cores\2413intf.h" />
+    <ClInclude Include="libvgm\emu\cores\2612intf.h" />
+    <ClInclude Include="libvgm\emu\cores\262intf.h" />
+    <ClInclude Include="libvgm\emu\cores\adlibemu.h" />
+    <ClInclude Include="libvgm\emu\cores\ay8910.h" />
+    <ClInclude Include="libvgm\emu\cores\ayintf.h" />
+    <ClInclude Include="libvgm\emu\cores\c140.h" />
+    <ClInclude Include="libvgm\emu\cores\c219.h" />
+    <ClInclude Include="libvgm\emu\cores\c352.h" />
+    <ClInclude Include="libvgm\emu\cores\c6280intf.h" />
+    <ClInclude Include="libvgm\emu\cores\c6280_mame.h" />
+    <ClInclude Include="libvgm\emu\cores\emu2149.h" />
+    <ClInclude Include="libvgm\emu\cores\emu2149_private.h" />
+    <ClInclude Include="libvgm\emu\cores\emu2413.h" />
+    <ClInclude Include="libvgm\emu\cores\emu2413_private.h" />
+    <ClInclude Include="libvgm\emu\cores\emutypes.h" />
+    <ClInclude Include="libvgm\emu\cores\es5503.h" />
+    <ClInclude Include="libvgm\emu\cores\es5506.h" />
+    <ClInclude Include="libvgm\emu\cores\fmopl.h" />
+    <ClInclude Include="libvgm\emu\cores\fmopn.h" />
+    <ClInclude Include="libvgm\emu\cores\fmopn_2608rom.h" />
+    <ClInclude Include="libvgm\emu\cores\gb.h" />
+    <ClInclude Include="libvgm\emu\cores\iremga20.h" />
+    <ClInclude Include="libvgm\emu\cores\k051649.h" />
+    <ClInclude Include="libvgm\emu\cores\k053260.h" />
+    <ClInclude Include="libvgm\emu\cores\k054539.h" />
+    <ClInclude Include="libvgm\emu\cores\multipcm.h" />
+    <ClInclude Include="libvgm\emu\cores\nesintf.h" />
+    <ClInclude Include="libvgm\emu\cores\nes_apu.h" />
+    <ClInclude Include="libvgm\emu\cores\nes_defs.h" />
+    <ClInclude Include="libvgm\emu\cores\np_nes_apu.h" />
+    <ClInclude Include="libvgm\emu\cores\np_nes_dmc.h" />
+    <ClInclude Include="libvgm\emu\cores\np_nes_fds.h" />
+    <ClInclude Include="libvgm\emu\cores\nukedopl3.h" />
+    <ClInclude Include="libvgm\emu\cores\nukedopl3_int.h" />
+    <ClInclude Include="libvgm\emu\cores\nukedopll.h" />
+    <ClInclude Include="libvgm\emu\cores\nukedopll_int.h" />
+    <ClInclude Include="libvgm\emu\cores\nukedopm.h" />
+    <ClInclude Include="libvgm\emu\cores\nukedopm_int.h" />
+    <ClInclude Include="libvgm\emu\cores\okiadpcm.h" />
+    <ClInclude Include="libvgm\emu\cores\okim6258.h" />
+    <ClInclude Include="libvgm\emu\cores\okim6295.h" />
+    <ClInclude Include="libvgm\emu\cores\Ootake_PSG.h" />
+    <ClInclude Include="libvgm\emu\cores\Ootake_PSG_private.h" />
+    <ClInclude Include="libvgm\emu\cores\oplintf.h" />
+    <ClInclude Include="libvgm\emu\cores\opll_2413tone.h" />
+    <ClInclude Include="libvgm\emu\cores\opll_281btone.h" />
+    <ClInclude Include="libvgm\emu\cores\opll_vrc7tone.h" />
+    <ClInclude Include="libvgm\emu\cores\opnintf.h" />
+    <ClInclude Include="libvgm\emu\cores\pokey.h" />
+    <ClInclude Include="libvgm\emu\cores\pwm.h" />
+    <ClInclude Include="libvgm\emu\cores\qsoundintf.h" />
+    <ClInclude Include="libvgm\emu\cores\qsound_ctr.h" />
+    <ClInclude Include="libvgm\emu\cores\qsound_mame.h" />
+    <ClInclude Include="libvgm\emu\cores\rf5c68.h" />
+    <ClInclude Include="libvgm\emu\cores\rf5cintf.h" />
+    <ClInclude Include="libvgm\emu\cores\saa1099_mame.h" />
+    <ClInclude Include="libvgm\emu\cores\saa1099_vb.h" />
+    <ClInclude Include="libvgm\emu\cores\saaintf.h" />
+    <ClInclude Include="libvgm\emu\cores\scd_pcm.h" />
+    <ClInclude Include="libvgm\emu\cores\scsp.h" />
+    <ClInclude Include="libvgm\emu\cores\scspdsp.h" />
+    <ClInclude Include="libvgm\emu\cores\segapcm.h" />
+    <ClInclude Include="libvgm\emu\cores\sn76489.h" />
+    <ClInclude Include="libvgm\emu\cores\sn76489_private.h" />
+    <ClInclude Include="libvgm\emu\cores\sn76496.h" />
+    <ClInclude Include="libvgm\emu\cores\sn764intf.h" />
+    <ClInclude Include="libvgm\emu\cores\upd7759.h" />
+    <ClInclude Include="libvgm\emu\cores\vsu.h" />
+    <ClInclude Include="libvgm\emu\cores\ws_audio.h" />
+    <ClInclude Include="libvgm\emu\cores\ws_initialIo.h" />
+    <ClInclude Include="libvgm\emu\cores\x1_010.h" />
+    <ClInclude Include="libvgm\emu\cores\ym2151.h" />
+    <ClInclude Include="libvgm\emu\cores\ym2413.h" />
+    <ClInclude Include="libvgm\emu\cores\ym2612.h" />
+    <ClInclude Include="libvgm\emu\cores\ym2612_int.h" />
+    <ClInclude Include="libvgm\emu\cores\ym3438.h" />
+    <ClInclude Include="libvgm\emu\cores\ym3438_int.h" />
+    <ClInclude Include="libvgm\emu\cores\ymdeltat.h" />
+    <ClInclude Include="libvgm\emu\cores\ymf262.h" />
+    <ClInclude Include="libvgm\emu\cores\ymf271.h" />
+    <ClInclude Include="libvgm\emu\cores\ymf278b.h" />
+    <ClInclude Include="libvgm\emu\cores\ymz280b.h" />
+    <ClInclude Include="libvgm\emu\dac_control.h" />
+    <ClInclude Include="libvgm\emu\EmuCores.h" />
+    <ClInclude Include="libvgm\emu\EmuHelper.h" />
+    <ClInclude Include="libvgm\emu\EmuStructs.h" />
+    <ClInclude Include="libvgm\emu\logging.h" />
+    <ClInclude Include="libvgm\emu\panning.h" />
+    <ClInclude Include="libvgm\emu\RatioCntr.h" />
+    <ClInclude Include="libvgm\emu\Resampler.h" />
+    <ClInclude Include="libvgm\emu\snddef.h" />
+    <ClInclude Include="libvgm\emu\SoundDevs.h" />
+    <ClInclude Include="libvgm\emu\SoundEmu.h" />
+    <ClInclude Include="libvgm\player\dblk_compr.h" />
+    <ClInclude Include="libvgm\player\droplayer.hpp" />
+    <ClInclude Include="libvgm\player\gymplayer.hpp" />
+    <ClInclude Include="libvgm\player\helper.h" />
+    <ClInclude Include="libvgm\player\playera.hpp" />
+    <ClInclude Include="libvgm\player\playerbase.hpp" />
+    <ClInclude Include="libvgm\player\s98player.hpp" />
+    <ClInclude Include="libvgm\player\vgmplayer.hpp" />
+    <ClInclude Include="libvgm\utils\DataLoader.h" />
+    <ClInclude Include="libvgm\utils\FileLoader.h" />
+    <ClInclude Include="libvgm\utils\MemoryLoader.h" />
+    <ClInclude Include="libvgm\utils\OSMutex.h" />
+    <ClInclude Include="libvgm\utils\OSSignal.h" />
+    <ClInclude Include="libvgm\utils\OSThread.h" />
+    <ClInclude Include="libvgm\utils\StrUtils.h" />
     <ClInclude Include="playcfg.hpp" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="TagFormatter.hpp" />

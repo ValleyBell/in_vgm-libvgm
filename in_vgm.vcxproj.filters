@@ -13,6 +13,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="libvgm">
+      <UniqueIdentifier>{59275079-a4a0-4496-b491-c34277aaa9a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libvgm\audio">
+      <UniqueIdentifier>{56e4f28e-9f81-4c08-ba8d-93aca6b8d66d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libvgm\emu">
+      <UniqueIdentifier>{cac3aa5c-f36f-4362-acba-61531175350e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libvgm\emu\cores">
+      <UniqueIdentifier>{d60a9cb6-da0b-47d2-bcda-1464a5c8aa9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libvgm\player">
+      <UniqueIdentifier>{4c13391b-0279-47e9-be8e-bd82336f151c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libvgm\utils">
+      <UniqueIdentifier>{af234e34-dd6d-422b-9a93-6e8363f88084}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
@@ -45,6 +63,294 @@
     <ClCompile Include="playcfg.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="libvgm\emu\dac_control.c">
+      <Filter>libvgm\emu</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\logging.c">
+      <Filter>libvgm\emu</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\panning.c">
+      <Filter>libvgm\emu</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\Resampler.c">
+      <Filter>libvgm\emu</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\SoundEmu.c">
+      <Filter>libvgm\emu</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\262intf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\2151intf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\2413intf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\2612intf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\adlibemu_opl2.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\adlibemu_opl3.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ay8910.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ayintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\c140.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\c219.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\c352.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\c6280_mame.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\c6280intf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\emu2149.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\emu2413.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\es5503.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\es5506.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\fmopl.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\fmopn.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\gb.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\iremga20.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\k051649.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\k053260.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\k054539.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\multipcm.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\nes_apu.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\nesintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\np_nes_apu.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\np_nes_dmc.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\np_nes_fds.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\nukedopl3.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\nukedopll.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\nukedopm.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\okiadpcm.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\okim6258.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\okim6295.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\Ootake_PSG.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\oplintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\opnintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\pokey.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\pwm.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\qsound_ctr.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\qsound_mame.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\qsoundintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\rf5c68.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\rf5cintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\saa1099_mame.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\saa1099_vb.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\saaintf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\scd_pcm.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\scsp.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\scspdsp.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\segapcm.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\sn764intf.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\sn76489.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\sn76496.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\upd7759.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\vsu.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ws_audio.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\x1_010.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ym2151.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ym2413.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ym2612.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ym3438.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ymdeltat.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ymf262.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ymf271.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ymf278b.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\emu\cores\ymz280b.c">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\dblk_compr.c">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\droplayer.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\gymplayer.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\helper.c">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\playera.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\playerbase.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\s98player.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\vgmplayer.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\player\vgmplayer_cmdhandler.cpp">
+      <Filter>libvgm\player</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\audio\AudDrv_DSound.cpp">
+      <Filter>libvgm\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\audio\AudDrv_WASAPI.cpp">
+      <Filter>libvgm\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\audio\AudDrv_WaveWriter.c">
+      <Filter>libvgm\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\audio\AudDrv_WinMM.c">
+      <Filter>libvgm\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\audio\AudDrv_XAudio2.cpp">
+      <Filter>libvgm\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\audio\AudioStream.c">
+      <Filter>libvgm\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\DataLoader.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\FileLoader.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\MemoryLoader.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\OSMutex_Win.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\OSSignal_Win.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\OSThread_Win.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="libvgm\utils\StrUtils-CPConv_Win.c">
+      <Filter>libvgm\utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="in_vgm.h">
@@ -67,6 +373,348 @@
     </ClInclude>
     <ClInclude Include="playcfg.hpp">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\dac_control.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\EmuCores.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\EmuHelper.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\EmuStructs.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\logging.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\panning.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\RatioCntr.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\Resampler.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\snddef.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\SoundDevs.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\SoundEmu.h">
+      <Filter>libvgm\emu</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\262intf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\2151intf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\2413intf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\2612intf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\adlibemu.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ay8910.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ayintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\c140.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\c219.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\c352.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\c6280_mame.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\c6280intf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\emu2149.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\emu2149_private.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\emu2413.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\emu2413_private.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\emutypes.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\es5503.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\es5506.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\fmopl.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\fmopn.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\fmopn_2608rom.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\gb.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\iremga20.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\k051649.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\k053260.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\k054539.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\multipcm.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nes_apu.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nes_defs.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nesintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\np_nes_apu.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\np_nes_dmc.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\np_nes_fds.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nukedopl3.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nukedopl3_int.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nukedopll.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nukedopll_int.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nukedopm.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\nukedopm_int.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\okiadpcm.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\okim6258.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\okim6295.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\Ootake_PSG.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\Ootake_PSG_private.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\oplintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\opll_281btone.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\opll_2413tone.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\opll_vrc7tone.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\opnintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\pokey.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\pwm.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\qsound_ctr.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\qsound_mame.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\qsoundintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\rf5c68.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\rf5cintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\saa1099_mame.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\saa1099_vb.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\saaintf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\scd_pcm.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\scsp.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\scspdsp.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\segapcm.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\sn764intf.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\sn76489.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\sn76489_private.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\sn76496.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\upd7759.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\vsu.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ws_audio.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ws_initialIo.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\x1_010.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ym2151.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ym2413.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ym2612.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ym2612_int.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ym3438.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ym3438_int.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ymdeltat.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ymf262.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ymf271.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ymf278b.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\emu\cores\ymz280b.h">
+      <Filter>libvgm\emu\cores</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\dblk_compr.h">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\droplayer.hpp">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\gymplayer.hpp">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\helper.h">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\playera.hpp">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\playerbase.hpp">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\s98player.hpp">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\player\vgmplayer.hpp">
+      <Filter>libvgm\player</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\audio\AudioStream.h">
+      <Filter>libvgm\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\audio\AudioStream_LstFuncs.h">
+      <Filter>libvgm\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\audio\AudioStream_SpcDrvFuns.h">
+      <Filter>libvgm\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\audio\AudioStructs.h">
+      <Filter>libvgm\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\DataLoader.h">
+      <Filter>libvgm\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\FileLoader.h">
+      <Filter>libvgm\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\MemoryLoader.h">
+      <Filter>libvgm\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\OSMutex.h">
+      <Filter>libvgm\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\OSSignal.h">
+      <Filter>libvgm\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\OSThread.h">
+      <Filter>libvgm\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="libvgm\utils\StrUtils.h">
+      <Filter>libvgm\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
