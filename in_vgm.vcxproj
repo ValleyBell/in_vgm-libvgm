@@ -43,8 +43,8 @@
     <LibraryPath>D:\VStudio-Programme\VC2010\libvgm\build-vs2017\bin\Debug;D:\VStudio-Programme\VC2010\libvgm\libs\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>libvgm\;libvgm\libs\iconv\include;libvgm\libs\include_vc;zlib\;$(IncludePath)</IncludePath>
-    <LibraryPath>libvgm\libs\iconv\lib;zlib\contrib\vstudio\vc17\x86\ZlibStatRelease;$(LibraryPath)</LibraryPath>
+    <IncludePath>libiconv-win-build\build-VS2022\libiconv-static;libvgm\;libvgm\libs\include_vc;zlib\;$(IncludePath)</IncludePath>
+    <LibraryPath>zlib\contrib\vstudio\vc17\x86\ZlibStatRelease;Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -76,7 +76,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>zlibstat.lib;libiconv.lib;comctl32.lib;winmm.lib;dsound.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>zlibstat.lib;libiconv-static.lib;comctl32.lib;winmm.lib;dsound.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
