@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "in_vgm", "in_vgm.vcxproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zlibstat", "zlib\contrib\vstudio\vc17\zlibstat.vcxproj", "{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libiconv-static", "libiconv-win-build\build-VS2022\libiconv-static\libiconv-static.vcxproj", "{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -71,8 +73,35 @@ Global
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|Win32.Build.0 = ReleaseWithoutAsm|Win32
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|x64.ActiveCfg = ReleaseWithoutAsm|x64
 		{745DEC58-EBB3-47A9-A9B8-4C6627C01BF8}.ReleaseWithoutAsm|x64.Build.0 = ReleaseWithoutAsm|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|ARM.ActiveCfg = Debug|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|ARM.Build.0 = Debug|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|ARM64.ActiveCfg = Debug|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|ARM64.Build.0 = Debug|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|Win32.Build.0 = Debug|Win32
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|x64.ActiveCfg = Debug|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Debug|x64.Build.0 = Debug|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|ARM.ActiveCfg = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|ARM.Build.0 = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|ARM64.ActiveCfg = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|ARM64.Build.0 = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|Win32.ActiveCfg = Release|Win32
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|Win32.Build.0 = Release|Win32
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|x64.ActiveCfg = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.Release|x64.Build.0 = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|ARM.ActiveCfg = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|ARM.Build.0 = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|ARM64.ActiveCfg = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|ARM64.Build.0 = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|Win32.ActiveCfg = Release|Win32
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|Win32.Build.0 = Release|Win32
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|x64.ActiveCfg = Release|x64
+		{46CAFE4A-B5BD-4422-ACC6-117D4AD041E2}.ReleaseWithoutAsm|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4290D90-BC1D-46D3-A32E-9C0884CB158C}
 	EndGlobalSection
 EndGlobal
