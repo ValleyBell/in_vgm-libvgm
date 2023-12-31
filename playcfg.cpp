@@ -305,6 +305,7 @@ static void LoadCfg_General(GeneralOptions& opts)
 	opts.pauseTime_loop		= ReadIniDef_Integer("Playback",	"PauseLoop",	0);
 	opts.hardStopOld		= ReadIniDef_IntByte("Playback",	"HardStopOld",	0);
 	opts.volume				= ReadIniDef_Float  ("Playback",	"Volume",		1.0);
+	opts.pbSpeed			= ReadIniDef_Float  ("Playback",	"PlaybackSpeed", 1.0);
 	opts.maxLoops			= ReadIniDef_Integer("Playback",	"MaxLoops",		2);
 	opts.pbRate				= ReadIniDef_Integer("Playback",	"PlaybackRate",	0);
 	opts.resmplMode			= ReadIniDef_IntByte("Playback",	"ResamplMode",	0);
@@ -512,6 +513,7 @@ static void SaveCfg_General(const GeneralOptions& opts)
 	WriteIni_Integer("Playback",	"PauseLoop",	opts.pauseTime_loop);
 	WriteIni_Integer("Playback",	"HardStopOld",	opts.hardStopOld);
 	WriteIni_Float  ("Playback",	"Volume",		(float)opts.volume);
+	WriteIni_Float  ("Playback",	"PlaybackSpeed", (float)opts.pbSpeed);
 	WriteIni_Integer("Playback",	"MaxLoops",		opts.maxLoops);
 	WriteIni_Integer("Playback",	"PlaybackRate",	opts.pbRate);
 	WriteIni_Integer("Playback",	"ResamplMode",	opts.resmplMode);
@@ -645,11 +647,12 @@ void ApplyCfg_General(PlayerA& player, const GeneralOptions& opts, bool noLiveOp
 	pwCfg.loopCount = opts.maxLoops;
 	if (! noLiveOpts)
 	{
+		player.SetSampleRate(opts.smplRate);
 		pwCfg.masterVol = (INT32)(0x10000 * opts.volume + 0.5);
 		pwCfg.fadeSmpls = MulDivRoundU32(opts.fadeTime, opts.smplRate, 1000);
 		pwCfg.endSilenceSmpls = MulDivRoundU32(opts.pauseTime_jingle, opts.smplRate, 1000);
+		pwCfg.pbSpeed = opts.pbSpeed;
 	}
-	pwCfg.pbSpeed = 1.0;
 	player.SetConfiguration(pwCfg);
 	
 	for (curPlr = 0; curPlr < plrs.size(); curPlr ++)

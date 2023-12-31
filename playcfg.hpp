@@ -12,6 +12,7 @@ struct GeneralOptions
 	UINT8 smplBits;
 	UINT32 pbRate;
 	double volume;
+	double pbSpeed;
 	UINT32 maxLoops;
 	
 	UINT8 resmplMode;

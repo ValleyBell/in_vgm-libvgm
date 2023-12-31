@@ -63,6 +63,7 @@ typedef BOOL (__stdcall *ITDTE_FUNC)(HWND hwnd);	// IsThemeDialogTextureEnabled
 // Function Prototypes from in_vgm.c
 const char* GetIniFilePath(void);
 FileInfoStorage* GetMainPlayerFIS(void);
+FileInfoStorage* GetMainPlayerFISScan(void);
 void RefreshPlaybackOptions(void);
 void RefreshMuting(void);
 void RefreshPanning(void);
@@ -492,6 +493,7 @@ static BOOL CALLBACK CfgDlgPlaybackProc(HWND hWndDlg, UINT wMessage, WPARAM wPar
 			gOpts.chipSmplRate = GetDlgItemInt(CfgPlayback, SmplChipRateText, NULL, FALSE);
 			gOpts.chipSmplMode = (UINT8)COMBO_GETPOS(CfgPlayback, ChipSmpModeList);
 			
+			ApplyCfg_General(*GetMainPlayerFISScan()->GetPlayer(), gOpts, false);
 			ApplyCfg_General(*GetMainPlayerFIS()->GetPlayer(), gOpts, true);
 			RefreshPlaybackOptions();
 			QueueInfoReload();	// if the Playback Rate was changed, a refresh is needed

@@ -117,6 +117,7 @@ static void SetVolume(int volume);
 static void SetPan(int pan);
 const char* GetIniFilePath(void);
 FileInfoStorage* GetMainPlayerFIS(void);
+FileInfoStorage* GetMainPlayerFISScan(void);
 void RefreshPlaybackOptions(void);
 void RefreshMuting(void);
 void RefreshPanning(void);
@@ -430,6 +431,7 @@ static void Init(void)
 	//fileScanPlayer->SetSampleRate(pluginCfg.genOpts.smplRate);
 	//fileScanPlayer->SetFadeSamples(MSec2Samples(pluginCfg.genOpts.fadeTime, *fileScanPlayer));
 	
+	ApplyCfg_General(*fileScanPlayer, pluginCfg.genOpts);
 	ApplyCfg_General(mainPlayer, pluginCfg.genOpts);
 	for (size_t curChp = 0; curChp < pluginCfg.chipOpts.size(); curChp ++)
 	{
@@ -679,15 +681,10 @@ int GetPlrSongLengthMS(const PlayerA& plr)
 	if (player == NULL)
 		return -1000;	// nothing is playing right now
 	
-	double songTime = plr.GetTotalTime(1);
+	// Note: I do *not* include the "pause after song end" here. This is intentional.
+	double songTime = plr.GetTotalTime(PLAYTIME_LOOP_INCL | PLAYTIME_TIME_PBK | PLAYTIME_WITH_FADE);
 	if (songTime < 0.0)
 		return -1000;	// for infinite loops
-	
-	// for looping songs, add fade time
-	if (player->GetLoopTicks() > 0)
-		songTime += player->Sample2Second(plr.GetFadeSamples());
-	
-	// Note: I do *not* include the "pause after song end" here. This is intentional.
 	
 	return (int)(songTime * 1000 + 0.5);
 }
@@ -699,15 +696,7 @@ int GetPlrSongLengthMS(const FileInfoStorage::SongInfo& songInfo)
 	if (songInfo.looping && pluginCfg.genOpts.maxLoops == 0)
 		return -1000;	// infinite loop
 	
-	double songTime = songInfo.songLenL;
-	
-	// for looping songs, add fade time
-	if (songInfo.looping)
-		songTime += pluginCfg.genOpts.fadeTime / 1000.0;	// use fade time from options
-	
-	// Note: I do *not* include the "pause after song end" here. This is intentional.
-	
-	return (int)(songTime * 1000 + 0.5);
+	return (int)(songInfo.songLenF * 1000 + 0.5);
 }
 
 int GetLength(void)	// return length of playing track
@@ -756,6 +745,11 @@ const char* GetIniFilePath(void)
 FileInfoStorage* GetMainPlayerFIS(void)
 {
 	return fisMain;
+}
+
+FileInfoStorage* GetMainPlayerFISScan(void)
+{
+	return fisScan;
 }
 
 void RefreshPlaybackOptions(void)

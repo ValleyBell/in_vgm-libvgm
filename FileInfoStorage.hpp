@@ -52,7 +52,7 @@ public:
 		bool hasTags;
 		bool usesYM2413;
 		double songLen1;	// length for playing once
-		double songLenL;	// length with all loops
+		double songLenF;	// "full" length with all loops and fading
 		double loopLen;	// loop length
 		double bitRate;
 		double volGain;

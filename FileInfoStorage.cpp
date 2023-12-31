@@ -166,7 +166,7 @@ void FileInfoStorage::ClearSongInfo(void)
 {
 	_songInfo.fileSize = 0;
 	_songInfo.songLen1 = 0.0;
-	_songInfo.songLenL = 0.0;
+	_songInfo.songLenF = 0.0;
 	_songInfo.loopLen = 0.0;
 	_songInfo.chipList.clear();
 	_songInfo.chipLstStr.clear();
@@ -192,8 +192,8 @@ void FileInfoStorage::ReadSongInfo(void)
 	_songInfo.dataEndPos = _songInfo.fileSize;
 	_songInfo.looping = (_songInfo.psi.loopTick != (UINT32)-1);
 	_songInfo.hasTags = false;
-	_songInfo.songLen1 = _player->GetTotalTime(0);
-	_songInfo.songLenL = _player->GetTotalTime(1);
+	_songInfo.songLen1 = _player->GetTotalTime(PLAYTIME_LOOP_EXCL | PLAYTIME_TIME_FILE);
+	_songInfo.songLenF = _player->GetTotalTime(PLAYTIME_LOOP_INCL | PLAYTIME_TIME_PBK | PLAYTIME_WITH_FADE);
 	_songInfo.loopLen = _player->GetLoopTime();
 	_songInfo.volGain = _songInfo.psi.volGain / (double)0x10000;
 	if (filePlr->GetPlayerType() == FCC_VGM)
