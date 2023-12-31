@@ -252,9 +252,9 @@ static int LoadConfigDialogInfo(HWND hWndDlg)
 					gOpts.immediateUpdate ? BST_CHECKED : BST_UNCHECKED);
 	
 	// --- Playback Tab ---
-	COMBO_ADDSTR(CfgPlayback, ResmpModeList, "HQ resampling");
-	COMBO_ADDSTR(CfgPlayback, ResmpModeList, "HQ up, LQ down");
-	COMBO_ADDSTR(CfgPlayback, ResmpModeList, "LQ resampling");
+	COMBO_ADDSTR(CfgPlayback, ResmpModeList, "linear interpolation");
+	COMBO_ADDSTR(CfgPlayback, ResmpModeList, "nearest-neighbour");
+	COMBO_ADDSTR(CfgPlayback, ResmpModeList, "lin. up, NN down");
 	COMBO_ADDSTR(CfgPlayback, ChipSmpModeList, "native");
 	COMBO_ADDSTR(CfgPlayback, ChipSmpModeList, "highest (nat./cust.)");
 	COMBO_ADDSTR(CfgPlayback, ChipSmpModeList, "custom");
@@ -1022,6 +1022,9 @@ static void ShowMutingCheckBoxes(UINT8 ChipID, UINT8 ChipSet)
 	case DEVID_GA20:
 		ChnCount = 4;
 		break;
+	case DEVID_MIKEY:
+		ChnCount = 4;
+		break;
 	default:
 		ChnCount = 0;
 		EnableChk = false;
@@ -1310,6 +1313,9 @@ static void ShowOptPanBoxes(UINT8 ChipID, UINT8 ChipSet)
 		break;
 	case DEVID_C352:
 		CoreName[0] = "superctr";
+		break;
+	case DEVID_MIKEY:
+		CoreName[0] = "laoo";
 		break;
 	default:
 		EnableChk = false;

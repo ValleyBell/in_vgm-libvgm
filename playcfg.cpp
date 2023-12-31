@@ -21,6 +21,7 @@ extern "C"
 #include <emu/EmuCores.h>
 #include <emu/EmuStructs.h>	// for DEVRI_SRMODE_* constants
 #include <emu/cores/2612intf.h>
+#include <emu/cores/ayintf.h>
 #include <emu/cores/gb.h>
 #include <emu/cores/nesintf.h>
 #include <emu/cores/okim6258.h>
@@ -108,6 +109,7 @@ static const ChipCfgSectDef CFG_CHIP_LIST[] =
 	{	DEVID_X1_010,	"X1-010"},
 	{	DEVID_C352,		"C352"},
 	{	DEVID_GA20,		"GA20"},
+	{	DEVID_MIKEY,		"Mikey"},
 };
 static const size_t CFG_CHIP_COUNT = sizeof(CFG_CHIP_LIST) / sizeof(CFG_CHIP_LIST[0]);
 
@@ -433,9 +435,15 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 		//sprintf(tempStr, "%s Disable FM", chipName);
 		//opts.chipDisable |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? 0x02 : 0x00;
 		break;
+	case DEVID_AY8910:
+		sprintf(tempStr, "%s PCM3chDetect", chipName);
+		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_AY8910_PCM3CH_DETECT : 0x00;
+		break;
 	case DEVID_GB_DMG:
 		sprintf(tempStr, "%s BoostWaveChn", chipName);
 		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_GB_DMG_BOOST_WAVECH : 0x00;
+		sprintf(tempStr, "%s NoWaveCorrupt", chipName);
+		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_GB_DMG_NO_WAVE_CORRUPT : 0x00;
 		break;
 	case DEVID_NES_APU:
 		sprintf(tempStr, "%s Shared Opts", chipName);
@@ -587,9 +595,15 @@ static void SaveCfg_ChipSection(const ChipOptions& opts, const char* chipName)
 		//sprintf(tempStr, "%s Disable FM", chipName);
 		//WriteIni_XInteger("ChipOpts", tempStr, !!(opts.chipDisable & 0x02));
 		break;
+	case DEVID_AY8910:
+		sprintf(tempStr, "%s PCM3chDetect", chipName);
+		WriteIni_XInteger("ChipOpts", tempStr, !!(opts.addOpts & OPT_AY8910_PCM3CH_DETECT));
+		break;
 	case DEVID_GB_DMG:
 		sprintf(tempStr, "%s BoostWaveChn", chipName);
 		WriteIni_XInteger("ChipOpts", tempStr, !!(opts.addOpts & OPT_GB_DMG_BOOST_WAVECH));
+		sprintf(tempStr, "%s NoWaveCorrupt", chipName);
+		WriteIni_XInteger("ChipOpts", tempStr, !!(opts.addOpts & OPT_GB_DMG_NO_WAVE_CORRUPT));
 		break;
 	case DEVID_NES_APU:
 		sprintf(tempStr, "%s Shared Opts", chipName);
@@ -674,7 +688,8 @@ static UINT8 ConvertChipSmplModeOption(UINT8 devID, UINT8 option)
 		return DEVRI_SRMODE_CUSTOM;
 	case 0x03:	// native for FM, highest for others
 		{
-			bool isFM = (devID == DEVID_YM3526 || devID == DEVID_Y8950 || devID == DEVID_YM3812 ||
+			bool isFM = false;
+			isFM = (devID == DEVID_YM3526 || devID == DEVID_Y8950 || devID == DEVID_YM3812 ||
 				devID == DEVID_YM2413 || devID == DEVID_YMF262 || devID == DEVID_YM2151 ||
 				devID == DEVID_YM2203 || devID == DEVID_YM2608 || devID == DEVID_YM2610 || devID == DEVID_YM2612);
 			return isFM ? DEVRI_SRMODE_NATIVE : DEVRI_SRMODE_HIGHEST;
