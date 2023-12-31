@@ -204,7 +204,7 @@ static void About(HWND hWndParent)
 		" (ANSI build)"
 #endif
 		"\n"
-		"by Valley Bell 2020\n"
+		"by Valley Bell 2023\n"
 		"\n"
 		"Build date: " __DATE__ " (" INVGM_VERSION ")\n"
 		"\n"
