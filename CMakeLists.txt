@@ -1,5 +1,5 @@
 #### in_vgm (libvgm-based) ####
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.6)	# actual minimum is 3.3
 if(POLICY CMP0042)
 	cmake_policy(SET CMP0042 NEW)
 endif()
