@@ -90,8 +90,8 @@ static const ChipCfgSectDef CFG_CHIP_LIST[] =
 	{	DEVID_NES_APU,	"NES APU"},
 	{	DEVID_YMW258,	"YMW258"},
 	{	DEVID_uPD7759,	"uPD7759"},
-	{	DEVID_OKIM6258,	"OKIM6258"},
-	{	DEVID_OKIM6295,	"OKIM6295"},
+	{	DEVID_MSM6258,	"MSM6258"},
+	{	DEVID_MSM6295,	"MSM6295"},
 	{	DEVID_K051649,	"K051649"},
 	{	DEVID_K054539,	"K054539"},
 	{	DEVID_C6280,	"HuC6280"},
@@ -105,11 +105,12 @@ static const ChipCfgSectDef CFG_CHIP_LIST[] =
 	{	DEVID_VBOY_VSU,	"VSU"},
 	{	DEVID_SAA1099,	"SAA1099"},
 	{	DEVID_ES5503,	"ES5503"},
-	{	DEVID_ES5506,	"ES5506"},
+	//{	DEVID_ES5506,	"ES5506"},
 	{	DEVID_X1_010,	"X1-010"},
 	{	DEVID_C352,		"C352"},
 	{	DEVID_GA20,		"GA20"},
-	{	DEVID_MIKEY,		"Mikey"},
+	{	DEVID_MIKEY,	"Mikey"},
+	{	DEVID_K007232,	"K007232"},
 };
 static const size_t CFG_CHIP_COUNT = sizeof(CFG_CHIP_LIST) / sizeof(CFG_CHIP_LIST[0]);
 
@@ -129,12 +130,13 @@ static inline UINT32 Str2FCC(const std::string& fcc)
 
 static inline std::string FCC2Str(UINT32 fcc)
 {
-	std::string result(4, '\0');
+	char result[5];
 	result[0] = (char)((fcc >> 24) & 0xFF);
 	result[1] = (char)((fcc >> 16) & 0xFF);
 	result[2] = (char)((fcc >>  8) & 0xFF);
 	result[3] = (char)((fcc >>  0) & 0xFF);
-	return result;
+	result[4] = '\0';
+	return std::string(result);
 }
 
 static UINT32 ReadIniDef_Integer(const char* section, const char* key, UINT32 default)
@@ -457,9 +459,9 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 		sprintf(tempStr, "%s FDS Opts", chipName);
 		opts.addOpts |= (ReadIniDef_Integer("ChipOpts", tempStr, 0x00) & 0x03) << 10;
 		break;
-	case DEVID_OKIM6258:
+	case DEVID_MSM6258:
 		sprintf(tempStr, "%s Internal 10bit", chipName);
-		opts.addOpts = ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_OKIM6258_FORCE_12BIT : 0x00;
+		opts.addOpts = ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_MSM6258_FORCE_12BIT : 0x00;
 		break;
 	case DEVID_SCSP:
 		sprintf(tempStr, "%s Bypass DSP", chipName);
@@ -618,9 +620,9 @@ static void SaveCfg_ChipSection(const ChipOptions& opts, const char* chipName)
 		sprintf(tempStr, "%s FDS Opts", chipName);
 		WriteIni_XInteger("ChipOpts", tempStr, (opts.addOpts >> 10) & 0x03);
 		break;
-	case DEVID_OKIM6258:
+	case DEVID_MSM6258:
 		sprintf(tempStr, "%s Internal 10bit", chipName);
-		WriteIni_XInteger("ChipOpts", tempStr, !!(opts.addOpts & OPT_OKIM6258_FORCE_12BIT));
+		WriteIni_XInteger("ChipOpts", tempStr, !!(opts.addOpts & OPT_MSM6258_FORCE_12BIT));
 		break;
 	case DEVID_SCSP:
 		sprintf(tempStr, "%s Bypass DSP", chipName);

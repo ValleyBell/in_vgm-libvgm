@@ -282,7 +282,7 @@ void FileInfoStorage::GenerateChipList(void)
 		}
 		if (pdi.type == DEVID_SN76496)
 		{
-			if (pdi.devCfg->flags && devCnt > 1)
+			if ((pdi.devCfg->flags & 0x01) && devCnt > 1)
 				devCnt /= 2;	// the T6W28 consists of two "half" chips in VGMs
 		}
 		if (devCnt > 1)

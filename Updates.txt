@@ -1,3 +1,12 @@
+in_vgm v0.52.0
+--------------
+* fixed a possible crash with high sound chip sample rates
+* fixed VGM v1.00/1.01 FM chip scan (thanks FraGag)
+* improved VirtualBoy VSU emulation (thanks skyfloogle)
++ added K007232, K005289, MSM5205 (thanks RAintN22)
+* added Mikey and MSM5205 support for PCM streams
+! renamed OKIM6258/95 chips to MSM6258/95
+
 in_vgm v0.51.1
 --------------
 * fixed VGM v1.00/1.01 files not playing YM2612 and YM2151 data
