@@ -278,6 +278,7 @@ void LoadConfiguration(PluginConfig& pCfg, const char* iniFileName)
 		for (curCI = 0; curCI < 2; curCI ++)
 		{
 			ChipOptions& opts = pCfg.chipOpts[curChp][curCI];
+			opts.cfgEntryName = cfgChip.entryName;
 			opts.chipType = cfgChip.chipType;
 			opts.chipInstance = (UINT8)curCI;
 			LoadCfg_ChipSection(opts, cfgChip.entryName);

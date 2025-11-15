@@ -11,6 +11,7 @@
 
 #include <emu/SoundDevs.h>
 #include <emu/EmuCores.h>
+#include <emu/EmuStructs.h>
 #include <emu/SoundEmu.h>	// for SndEmu_GetDevName()
 
 #include "resource.h"
@@ -342,6 +343,8 @@ static int LoadConfigDialogInfo(HWND hWndDlg)
 	{
 		const ChipOptions& cOpts = pluginCfg.chipOpts[curChp][0];
 		const char* devName = SndEmu_GetDevName(cOpts.chipType, 0x00, NULL);
+		if (devName == NULL)
+			devName = cOpts.cfgEntryName;
 		COMBO_ADDSTR(CfgMuting, MutingChipList, devName);
 		COMBO_ADDSTR(CfgOptPan, EmuOptChipList, devName);
 	}
@@ -843,20 +846,23 @@ static UINT32 GetChipCore(const ChipOptions& cOpts)
 
 static void ShowMutingCheckBoxes(UINT8 ChipID, UINT8 ChipSet)
 {
-	UINT8 ChnCount;
-	UINT8 ChnCntS[0x04];
-	const char* SpcName[0x40];	// Special Channel Names
-	UINT8 CurChn;
+	UINT16 ChnCount;
+	UINT16 ChnCntS[4];
+	const char* SpcName[64];	// Special Channel Names
+	const char* SpcRngName[4];	// Special Channel Range Names
+	UINT16 CurChn;
 	UINT8 SpcModes;
 	bool EnableChk;
 	bool Checked;
 	UINT8 CurMode;
-	UINT8 ChnBase;
-	UINT8 FnlChn;
+	UINT16 ChnBase;
+	UINT16 FnlChn;
 	char TempName[0x18];
 	
-	for (CurChn = 0; CurChn < 0x40; CurChn ++)
+	for (CurChn = 0; CurChn < 64; CurChn ++)
 		SpcName[CurChn] = NULL;
+	for (CurChn = 0; CurChn < 4; CurChn ++)
+		SpcRngName[CurChn] = NULL;
 	
 	muteCOpts = &pluginCfg.chipOpts[ChipID][ChipSet];
 	muteChipID = ChipID;
@@ -864,92 +870,70 @@ static void ShowMutingCheckBoxes(UINT8 ChipID, UINT8 ChipSet)
 	
 	EnableChk = IsChipAvailable(*muteCOpts);
 	SpcModes = 0;
+	{
+		// get channel count from libvgm
+		const DEV_DECL* const* devPtr = sndEmu_Devices;
+		while(*devPtr != NULL && (*devPtr)->deviceID != muteCOpts->chipType)
+			devPtr ++;
+		ChnCount = (devPtr != NULL) ? (*devPtr)->channelCount(NULL) : 0;
+	}
+	// handle special channel names
 	switch(muteCOpts->chipType)
 	{
 	case DEVID_SN76496:
-		ChnCount = 4;
 		SpcName[3] = "&Noise";
 		break;
 	case DEVID_YM2413:
 	case DEVID_YM3812:
 	case DEVID_YM3526:
 	case DEVID_Y8950:
-		ChnCount = 14;	// 9 + 5
 		SpcName[ 9] = "&Bass Drum";
 		SpcName[10] = "S&nare Drum";
 		SpcName[11] = "&Tom Tom";
 		SpcName[12] = "C&ymbal";
 		SpcName[13] = "&Hi-Hat";
 		if (muteCOpts->chipType == DEVID_Y8950)
-		{
-			ChnCount = 15;
 			SpcName[14] = "&Delta-T";
-		}
 		break;
 	case DEVID_YM2612:
-		ChnCount = 7;	// 6 + DAC
 		SpcName[6] = "&DAC";
 		break;
-	case DEVID_YM2151:
-		ChnCount = 8;
-		break;
-	case DEVID_SEGAPCM:
-		ChnCount = 16;
-		break;
-	case DEVID_RF5C68:
-		ChnCount = 8;
-		break;
 	case DEVID_YM2203:
-		ChnCount = 6;	// 3 FM + 3 AY8910
 		SpcModes = 3;
-		ChnCntS[0] = 3;
-		SpcName[0] = "FM Chn";
+		ChnCntS[0] = 3;	// 3x FM
+		SpcRngName[0] = "FM Chn";
 		ChnCntS[1] = 0;
-		ChnCntS[2] = 3;
-		SpcName[2] = "SSG Chn";
+		ChnCntS[2] = 3;		// 3x SSG
+		SpcRngName[2] = "SSG Chn";
+		ChnCount = ChnCntS[0] + ChnCntS[1] + ChnCntS[2];
 		break;
 	case DEVID_YM2608:
 	case DEVID_YM2610:
-		ChnCount = 16;	// 6 FM + 6 ADPCM + 1 DeltaT + 3 AY8910
 		SpcModes = 3;
-		ChnCntS[0] = 6;
-		SpcName[0] = "FM Chn";
-		ChnCntS[1] = 7;
-		SpcName[1] = "PCM Chn";
+		ChnCntS[0] = 6;	// 6x FM
+		SpcRngName[0] = "FM Chn";
+		ChnCntS[1] = 7;	// 6x ADPCM-A + 1x DeltaT
+		SpcRngName[1] = "PCM Chn";
 		SpcName[14] = "&Delta-T";
-		ChnCntS[2] = 3;
-		SpcName[2] = "SSG Chn";
+		ChnCntS[2] = 3;	// 3x SSG
+		SpcRngName[2] = "SSG Chn";
+		ChnCount = ChnCntS[0] + ChnCntS[1] + ChnCntS[2];
 		break;
 	case DEVID_YMF262:
-		ChnCount = 23;	// 18 + 5
 		SpcName[18] = "&Bass Drum";
 		SpcName[19] = "S&nare Drum";
 		SpcName[20] = "&Tom Tom";
 		SpcName[21] = "C&ymbal";
 		SpcName[22] = "&Hi-Hat";
 		break;
-	case DEVID_YMF278B:
-		ChnCount = 24;
-		break;
-	case DEVID_YMF271:
-		ChnCount = 12;
-		break;
-	case DEVID_YMZ280B:
-		ChnCount = 8;
-		break;
 	case DEVID_32X_PWM:
-		ChnCount = 1;
 		EnableChk &= ! ChipSet;
-		break;
-	case DEVID_AY8910:
-		ChnCount = 3;
 		break;
 	case DEVID_GB_DMG:
 		SpcName[0] = "Square &1";
 		SpcName[1] = "Square &2";
-		SpcName[2] = "Progr. &Wave";
+		SpcName[2] = "&Wave";
 		SpcName[3] = "&Noise";
-		ChnCount = 4;
 		break;
 	case DEVID_NES_APU:
 		SpcName[0] = "Square &1";
@@ -958,81 +942,17 @@ static void ShowMutingCheckBoxes(UINT8 ChipID, UINT8 ChipSet)
 		SpcName[3] = "&Noise";
 		SpcName[4] = "&DPCM";
 		SpcName[5] = "&FDS";
-		ChnCount = 6;
-		break;
-	case DEVID_YMW258:	// Multi PCM
-		ChnCount = 28;
-		break;
-	case DEVID_uPD7759:
-		ChnCount = 1;
-		break;
-	case DEVID_OKIM6258:
-		ChnCount = 1;
-		break;
-	case DEVID_OKIM6295:
-		ChnCount = 4;
-		break;
-	case DEVID_K051649:
-		ChnCount = 5;
-		break;
-	case DEVID_K054539:
-		ChnCount = 8;
-		break;
-	case DEVID_C6280:
-		ChnCount = 6;
-		break;
-	case DEVID_C140:
-		ChnCount = 24;
-		break;
-	case DEVID_C219:
-		ChnCount = 16;
-		break;
-	case DEVID_K053260:
-		ChnCount = 4;
-		break;
-	case DEVID_POKEY:
-		ChnCount = 4;
 		break;
 	case DEVID_QSOUND:
-		ChnCount = 16;
+		SpcName[16] = "ADPCM 1 (&H)";
+		SpcName[17] = "ADPCM 2 (&I)";
+		SpcName[18] = "ADPCM 3 (&J)";
 		EnableChk &= ! ChipSet;
 		break;
-	case DEVID_SCSP:
-		ChnCount = 32;
-		break;
-	case DEVID_WSWAN:
-		ChnCount = 4;
-		break;
-	case DEVID_VBOY_VSU:
-		ChnCount = 6;
-		break;
-	case DEVID_SAA1099:
-		ChnCount = 6;
-		break;
-	case DEVID_ES5503:
-		ChnCount = 32;
-		break;
-	case DEVID_ES5506:
-		ChnCount = 32;
-		break;
-	case DEVID_X1_010:
-		ChnCount = 16;
-		break;
-	case DEVID_C352:
-		ChnCount = 32;
-		break;
-	case DEVID_GA20:
-		ChnCount = 4;
-		break;
-	case DEVID_MIKEY:
-		ChnCount = 4;
-		break;
-	default:
-		ChnCount = 0;
-		EnableChk = false;
-		break;
 	}
-	if (ChnCount > 24)
+	if (ChnCount == 0)
+		EnableChk = false;
+	else if (ChnCount > 24)
 		ChnCount = 24;	// currently only 24 checkboxes are supported
 	
 	SETCHECKBOX(CfgMuting, MuteChipCheck, muteCOpts->chipDisable);
@@ -1068,17 +988,17 @@ static void ShowMutingCheckBoxes(UINT8 ChipID, UINT8 ChipSet)
 		for (CurMode = 0; CurMode < SpcModes; CurMode ++)
 		{
 			ChnBase = CurMode * 8;
-			if (SpcName[CurMode] == NULL)
-				SpcName[CurMode] = "Channel";
+			if (SpcRngName[CurMode] == NULL)
+				SpcRngName[CurMode] = "Channel";
 			
 			for (CurChn = 0, FnlChn = ChnBase; CurChn < ChnCntS[CurMode]; CurChn ++, FnlChn ++)
 			{
-				if (FnlChn < SpcModes || SpcName[FnlChn] == NULL)
+				if (SpcName[FnlChn] == NULL)
 				{
 					if (1 + CurChn < 10)
-						sprintf(TempName, "%s &%u", SpcName[CurMode], 1 + CurChn);
+						sprintf(TempName, "%s &%u", SpcRngName[CurMode], 1 + CurChn);
 					else
-						sprintf(TempName, "%s %u (&%c)", SpcName[CurMode], 1 + CurChn,
+						sprintf(TempName, "%s %u (&%c)", SpcRngName[CurMode], 1 + CurChn,
 								'A' + (CurChn - 9));
 					SetDlgItemTextA(CfgMuting, MuteChn1Check + FnlChn, TempName);
 				}
@@ -1201,14 +1121,14 @@ static void ShowOptPanBoxes(UINT8 ChipID, UINT8 ChipSet)
 {
 	UINT8 ChnCount;
 	UINT8 CurChn;
-	const char* SpcName[0x20];	// Special Channel Names
+	const char* SpcName[32];	// Special Channel Names
 	const char* CoreName[3];	// Names for the Emulation Cores
 	bool EnableChk;
 	UINT8 coreCnt;
 	UINT32 curEmuCore;
 	UINT8 panMaskID;
 	
-	for (CurChn = 0x00; CurChn < 0x20; CurChn ++)
+	for (CurChn = 0x00; CurChn < 32; CurChn ++)
 		SpcName[CurChn] = NULL;
 	
 	CoreName[0] = NULL;

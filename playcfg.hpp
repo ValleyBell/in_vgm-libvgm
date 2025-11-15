@@ -47,6 +47,7 @@ struct GeneralOptions
 };
 struct ChipOptions
 {
+	const char* cfgEntryName;
 	UINT8 chipType;
 	UINT8 chipInstance;
 	UINT8 chipDisable;	// bit mask, bit 0 (01) = main, bit 1 (02) = linked
