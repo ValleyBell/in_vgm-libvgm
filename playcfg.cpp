@@ -417,11 +417,12 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 	}
 	
 	// chip-specific options
+	opts.addOpts = 0x00;
 	switch(chipType)
 	{
 	case DEVID_YM2612:
 		sprintf(tempStr, "%s PseudoStereo", chipName);
-		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_YM2612_PSEUDO_STEREO : 0x00;
+		opts.addOpts |=  ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_YM2612_PSEUDO_STEREO : 0x00;
 		sprintf(tempStr, "%s Gens DACHighpass", chipName);
 		opts.addOpts |=  ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_YM2612_DAC_HIGHPASS : 0x00;
 		sprintf(tempStr, "%s Gens SSG-EG", chipName);
@@ -441,17 +442,17 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 		break;
 	case DEVID_AY8910:
 		sprintf(tempStr, "%s PCM3chDetect", chipName);
-		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_AY8910_PCM3CH_DETECT : 0x00;
+		opts.addOpts |=  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_AY8910_PCM3CH_DETECT : 0x00;
 		break;
 	case DEVID_GB_DMG:
 		sprintf(tempStr, "%s BoostWaveChn", chipName);
-		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_GB_DMG_BOOST_WAVECH : 0x00;
+		opts.addOpts |=  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_GB_DMG_BOOST_WAVECH : 0x00;
 		sprintf(tempStr, "%s NoWaveCorrupt", chipName);
-		opts.addOpts  =  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_GB_DMG_NO_WAVE_CORRUPT : 0x00;
+		opts.addOpts |=  ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_GB_DMG_NO_WAVE_CORRUPT : 0x00;
 		break;
 	case DEVID_NES_APU:
 		sprintf(tempStr, "%s Shared Opts", chipName);
-		opts.addOpts  = (ReadIniDef_Integer("ChipOpts", tempStr, 0x03) & 0x03) << 0;
+		opts.addOpts |= (ReadIniDef_Integer("ChipOpts", tempStr, 0x03) & 0x03) << 0;
 		sprintf(tempStr, "%s APU Opts", chipName);
 		opts.addOpts |= (ReadIniDef_Integer("ChipOpts", tempStr, 0x01) & 0x01) << 2;
 		sprintf(tempStr, "%s DMC Opts", chipName);
@@ -461,15 +462,15 @@ static void LoadCfg_ChipSection(ChipOptions& opts, const char* chipName)
 		break;
 	case DEVID_MSM6258:
 		sprintf(tempStr, "%s Internal 10bit", chipName);
-		opts.addOpts = ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_MSM6258_FORCE_12BIT : 0x00;
+		opts.addOpts |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_MSM6258_FORCE_12BIT : 0x00;
 		break;
 	case DEVID_SCSP:
 		sprintf(tempStr, "%s Bypass DSP", chipName);
-		opts.addOpts = ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_SCSP_BYPASS_DSP : 0x00;
+		opts.addOpts |= ReadIniDef_Integer("ChipOpts", tempStr, 1) ? OPT_SCSP_BYPASS_DSP : 0x00;
 		break;
 	case DEVID_C352:
 		sprintf(tempStr, "%s Disable Rear", chipName);
-		opts.addOpts = ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_C352_MUTE_REAR : 0x00;
+		opts.addOpts |= ReadIniDef_Integer("ChipOpts", tempStr, 0) ? OPT_C352_MUTE_REAR : 0x00;
 		break;
 	}	// end switch(chipType) for chip-specific options
 	
